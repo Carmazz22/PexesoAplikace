@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu1));
             this.button_newGame = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.button_multi = new System.Windows.Forms.Button();
@@ -38,6 +39,10 @@
             // 
             // button_newGame
             // 
+            this.button_newGame.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_newGame.BackgroundImage")));
+            this.button_newGame.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button_newGame.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_newGame.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             this.button_newGame.Location = new System.Drawing.Point(275, 51);
             this.button_newGame.Name = "button_newGame";
             this.button_newGame.Size = new System.Drawing.Size(161, 74);
