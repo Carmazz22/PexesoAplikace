@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace PexesoAplikaceWF
 {
-    public partial class Game_Settings : Form
+    public partial class Score : Form
     {
-        public Game_Settings()
+        public Score()
         {
             InitializeComponent();
         }
@@ -26,6 +26,13 @@ namespace PexesoAplikaceWF
                 Game_Singleplayer.Show();
                 this.Hide();
             }
+        }
+
+        private void button_return_Click(object sender, EventArgs e)
+        {
+            Form menu = new Menu1();
+            menu.Show();
+            this.Hide();
         }
     }
 }

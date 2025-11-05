@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace PexesoAplikaceWF
 {
+   
     public partial class Game_Singleplayer : Form
     {
+        string cesta = @"..\..\Config\settings.json"; //cesta k settings
         private List<Button> vybraneKarty = new List<Button>();
         private bool blokovatKliky = false;
         private int pocet_hracu = 1; //zatim fixni, pozdeji volba mezi 1 vice hraci, podle cteni z JSON
@@ -22,12 +27,23 @@ namespace PexesoAplikaceWF
             label_Player = new Label();
             label_Player.AutoSize = true;
             label_Player.Location = new Point(10, 320);
-            label_Player.Font = new Font("Arial", 12, FontStyle.Bold);
+            label_Player.Font = new Font("Comis Sans Ms", 12, FontStyle.Bold);
             this.Controls.Add(label_Player);
         }
 
         private void Game_Singleplayer_Load(object sender, EventArgs e)
         {
+
+            //nacteni veci z JSONu
+            string json = File.ReadAllText(cesta);
+            JObject data = JObject.Parse(json);
+
+            int pocet_hracu = (int)data["pocet_hracu"];
+            int zvuk = (int)data["zvuk"];
+            string ai_obt = (string)data["ai_obt"];
+            int pocet_karet = (int)data["pocet_karet"];
+            int vzhled_karet = (int)data["vzhled_karet"];
+
             int pocetKaret = 30;
 
             List<int> cislaKaret = new List<int>();

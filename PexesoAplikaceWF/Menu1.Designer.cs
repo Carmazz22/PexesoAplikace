@@ -32,9 +32,9 @@
             this.button_newGame = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.button_multi = new System.Windows.Forms.Button();
-            this.button_settings = new System.Windows.Forms.Button();
+            this.button_score = new System.Windows.Forms.Button();
             this.button_exit = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_settings = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button_newGame
@@ -70,14 +70,15 @@
             this.button_multi.Text = "Otevřít hru";
             this.button_multi.UseVisualStyleBackColor = true;
             // 
-            // button_settings
+            // button_score
             // 
-            this.button_settings.Location = new System.Drawing.Point(275, 211);
-            this.button_settings.Name = "button_settings";
-            this.button_settings.Size = new System.Drawing.Size(161, 74);
-            this.button_settings.TabIndex = 3;
-            this.button_settings.Text = "Skóre";
-            this.button_settings.UseVisualStyleBackColor = true;
+            this.button_score.Location = new System.Drawing.Point(275, 211);
+            this.button_score.Name = "button_score";
+            this.button_score.Size = new System.Drawing.Size(161, 74);
+            this.button_score.TabIndex = 3;
+            this.button_score.Text = "Skóre";
+            this.button_score.UseVisualStyleBackColor = true;
+            this.button_score.Click += new System.EventHandler(this.button_score_Click);
             // 
             // button_exit
             // 
@@ -87,29 +88,34 @@
             this.button_exit.TabIndex = 4;
             this.button_exit.Text = "Konec";
             this.button_exit.UseVisualStyleBackColor = true;
+            this.button_exit.Click += new System.EventHandler(this.button_exit_Click);
             // 
-            // button1
+            // button_settings
             // 
-            this.button1.Location = new System.Drawing.Point(275, 291);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(161, 74);
-            this.button1.TabIndex = 5;
-            this.button1.Text = "Nastavení";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_settings.Location = new System.Drawing.Point(275, 290);
+            this.button_settings.Name = "button_settings";
+            this.button_settings.Size = new System.Drawing.Size(161, 74);
+            this.button_settings.TabIndex = 5;
+            this.button_settings.Text = "Nastavení";
+            this.button_settings.UseVisualStyleBackColor = true;
+            this.button_settings.Click += new System.EventHandler(this.button_settings_Click);
             // 
             // Menu1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button_exit);
+            this.AutoSize = true;
+            this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
+            this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.button_settings);
+            this.Controls.Add(this.button_exit);
+            this.Controls.Add(this.button_score);
             this.Controls.Add(this.button_multi);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_newGame);
             this.Name = "Menu1";
-            this.Text = "Form1";
+            this.Text = "PEXESO";
+            this.Load += new System.EventHandler(this.Menu1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -120,9 +126,9 @@
         private System.Windows.Forms.Button button_newGame;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button_multi;
-        private System.Windows.Forms.Button button_settings;
+        private System.Windows.Forms.Button button_score;
         private System.Windows.Forms.Button button_exit;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_settings;
     }
 }
 
