@@ -1,3 +1,3 @@
 # Pexeso
 
-Desktopová hra pro 1-6 hráčů. 
+Hra Pexeso je hra pro 2 až 6 hráčů nebo proti počítači. Počítač náhodně rozmístí obrázkové karty rubovou stranou navrch. Hráč otočí libovolné tři karty lícem navrch. Jestliže jsou karty shodné, získává bod a může pokračovat ve hře otočením další trojice karet. Jestliže jsou karty rozdílné, otočí se rubem navrch a ve hře pokračuje další hráč. Program bude obsahovat nabídku – nová hra, otevření, uložení, skóre, nastavení. Nová hra požaduje jména hráčů. Uložení a otevření rozehrané hry. Skóre obsahuje tabulku jméno hráče, výhra/prohra, počet nasbíraných karet, počet všech karet, kde půjde vyhledávat a filtrovat podle všech položek. Nastavení, zahrnuje zapnutí/vypnutí zvuku, počet hráčů, počet karet, druh karet, obtížnosti počítače. Obrázky na kartách budou vlastním dílem autora a půjde vybírat z několik sad. Vývojové prostředí VS, jazyk C#, sdílení a ukládání GitHub.
