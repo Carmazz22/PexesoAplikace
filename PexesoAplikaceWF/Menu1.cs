@@ -7,7 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Newtonsoft.Json.Linq;
+using System.IO;
 namespace PexesoAplikaceWF
 {
     public partial class Menu1 : Form
@@ -19,9 +20,15 @@ namespace PexesoAplikaceWF
 
         private void button_newGame_Click(object sender, EventArgs e)
         {
-            Form Game_Singleplayer = new Game_Singleplayer();
+
+
+            /*Form Game_Singleplayer = new Game_Singleplayer();
             Game_Singleplayer.Show();
+            */
+            PlayerNames playerNamesForm = new PlayerNames();
+            playerNamesForm.Show();
             this.Hide();
+
         }
 
         private void button_settings_Click(object sender, EventArgs e)

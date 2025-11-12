@@ -61,6 +61,12 @@
     <Compile Include="Menu1.Designer.cs">
       <DependentUpon>Menu1.cs</DependentUpon>
     </Compile>
+    <Compile Include="PlayerNames.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PlayerNames.Designer.cs">
+      <DependentUpon>PlayerNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Score.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,6 +81,9 @@
     <Compile Include="Settings.Designer.cs">
       <DependentUpon>Settings.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="PlayerNames.resx">
+      <DependentUpon>PlayerNames.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Score.resx">
       <DependentUpon>Score.cs</DependentUpon>
     </EmbeddedResource>

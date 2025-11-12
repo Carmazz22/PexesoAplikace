@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button_play = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.combo_pocet_hracu = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -41,16 +40,6 @@
             this.combo_vzhled = new System.Windows.Forms.ComboBox();
             this.button_return = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // button_play
-            // 
-            this.button_play.ForeColor = System.Drawing.Color.Black;
-            this.button_play.Location = new System.Drawing.Point(475, 25);
-            this.button_play.Name = "button_play";
-            this.button_play.Size = new System.Drawing.Size(75, 23);
-            this.button_play.TabIndex = 5;
-            this.button_play.Text = "Hrát";
-            this.button_play.UseVisualStyleBackColor = true;
             // 
             // label1
             // 
@@ -204,7 +193,6 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.combo_zvuk);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.button_play);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.combo_pocet_hracu);
             this.ForeColor = System.Drawing.Color.White;
@@ -218,8 +206,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button_play;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox combo_pocet_hracu;
         private System.Windows.Forms.Label label2;
