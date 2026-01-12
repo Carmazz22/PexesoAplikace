@@ -142,7 +142,7 @@ namespace PexesoAplikaceWF
             JObject data = JObject.Parse(File.ReadAllText(cesta));
 
 
-            data["pocet_karet"] = combo_dif.Items[combo_dif.SelectedIndex].ToString();
+            data["pocet_karet"] = combo_pocet.Items[combo_pocet.SelectedIndex].ToString();
 
 
             File.WriteAllText(cesta, data.ToString(Newtonsoft.Json.Formatting.Indented));
@@ -153,7 +153,7 @@ namespace PexesoAplikaceWF
             JObject data = JObject.Parse(File.ReadAllText(cesta));
 
 
-            data["pocet_karet"] = combo_dif.Items[combo_dif.SelectedIndex].ToString();
+            data["vzhled_karet"] = combo_vzhled.Items[combo_vzhled.SelectedIndex].ToString();
 
 
             File.WriteAllText(cesta, data.ToString(Newtonsoft.Json.Formatting.Indented));

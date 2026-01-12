@@ -1,0 +1,196 @@
+{
+  "AktualniHracIndex": 0,
+  "PocetHracuOriginal": 1,
+  "Hraci": [
+    {
+      "Jmeno": "Karel",
+      "Skore": 0
+    },
+    {
+      "Jmeno": "AI",
+      "Skore": 0
+    }
+  ],
+  "Karty": [
+    {
+      "Tag": 10,
+      "JeNaPlose": true,
+      "PoziceX": 20,
+      "PoziceY": 20
+    },
+    {
+      "Tag": 8,
+      "JeNaPlose": true,
+      "PoziceX": 115,
+      "PoziceY": 20
+    },
+    {
+      "Tag": 7,
+      "JeNaPlose": true,
+      "PoziceX": 210,
+      "PoziceY": 20
+    },
+    {
+      "Tag": 3,
+      "JeNaPlose": true,
+      "PoziceX": 305,
+      "PoziceY": 20
+    },
+    {
+      "Tag": 1,
+      "JeNaPlose": true,
+      "PoziceX": 400,
+      "PoziceY": 20
+    },
+    {
+      "Tag": 4,
+      "JeNaPlose": true,
+      "PoziceX": 495,
+      "PoziceY": 20
+    },
+    {
+      "Tag": 2,
+      "JeNaPlose": true,
+      "PoziceX": 20,
+      "PoziceY": 115
+    },
+    {
+      "Tag": 3,
+      "JeNaPlose": true,
+      "PoziceX": 115,
+      "PoziceY": 115
+    },
+    {
+      "Tag": 8,
+      "JeNaPlose": true,
+      "PoziceX": 210,
+      "PoziceY": 115
+    },
+    {
+      "Tag": 8,
+      "JeNaPlose": true,
+      "PoziceX": 305,
+      "PoziceY": 115
+    },
+    {
+      "Tag": 3,
+      "JeNaPlose": true,
+      "PoziceX": 400,
+      "PoziceY": 115
+    },
+    {
+      "Tag": 7,
+      "JeNaPlose": true,
+      "PoziceX": 495,
+      "PoziceY": 115
+    },
+    {
+      "Tag": 6,
+      "JeNaPlose": true,
+      "PoziceX": 20,
+      "PoziceY": 210
+    },
+    {
+      "Tag": 9,
+      "JeNaPlose": true,
+      "PoziceX": 115,
+      "PoziceY": 210
+    },
+    {
+      "Tag": 5,
+      "JeNaPlose": true,
+      "PoziceX": 210,
+      "PoziceY": 210
+    },
+    {
+      "Tag": 1,
+      "JeNaPlose": true,
+      "PoziceX": 305,
+      "PoziceY": 210
+    },
+    {
+      "Tag": 2,
+      "JeNaPlose": true,
+      "PoziceX": 400,
+      "PoziceY": 210
+    },
+    {
+      "Tag": 10,
+      "JeNaPlose": true,
+      "PoziceX": 495,
+      "PoziceY": 210
+    },
+    {
+      "Tag": 9,
+      "JeNaPlose": true,
+      "PoziceX": 20,
+      "PoziceY": 305
+    },
+    {
+      "Tag": 6,
+      "JeNaPlose": true,
+      "PoziceX": 115,
+      "PoziceY": 305
+    },
+    {
+      "Tag": 4,
+      "JeNaPlose": true,
+      "PoziceX": 210,
+      "PoziceY": 305
+    },
+    {
+      "Tag": 5,
+      "JeNaPlose": true,
+      "PoziceX": 305,
+      "PoziceY": 305
+    },
+    {
+      "Tag": 9,
+      "JeNaPlose": true,
+      "PoziceX": 400,
+      "PoziceY": 305
+    },
+    {
+      "Tag": 10,
+      "JeNaPlose": true,
+      "PoziceX": 495,
+      "PoziceY": 305
+    },
+    {
+      "Tag": 4,
+      "JeNaPlose": true,
+      "PoziceX": 20,
+      "PoziceY": 400
+    },
+    {
+      "Tag": 6,
+      "JeNaPlose": true,
+      "PoziceX": 115,
+      "PoziceY": 400
+    },
+    {
+      "Tag": 5,
+      "JeNaPlose": true,
+      "PoziceX": 210,
+      "PoziceY": 400
+    },
+    {
+      "Tag": 1,
+      "JeNaPlose": true,
+      "PoziceX": 305,
+      "PoziceY": 400
+    },
+    {
+      "Tag": 2,
+      "JeNaPlose": true,
+      "PoziceX": 400,
+      "PoziceY": 400
+    },
+    {
+      "Tag": 7,
+      "JeNaPlose": true,
+      "PoziceX": 495,
+      "PoziceY": 400
+    }
+  ]
+}

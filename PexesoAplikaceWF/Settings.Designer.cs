@@ -171,7 +171,7 @@
             // button_return
             // 
             this.button_return.ForeColor = System.Drawing.Color.Black;
-            this.button_return.Location = new System.Drawing.Point(713, 415);
+            this.button_return.Location = new System.Drawing.Point(12, 152);
             this.button_return.Name = "button_return";
             this.button_return.Size = new System.Drawing.Size(75, 23);
             this.button_return.TabIndex = 14;
@@ -183,7 +183,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.button_return);
             this.Controls.Add(this.combo_vzhled);
             this.Controls.Add(this.label5);
@@ -197,6 +197,7 @@
             this.Controls.Add(this.combo_pocet_hracu);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Settings";
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Settings_Load);
