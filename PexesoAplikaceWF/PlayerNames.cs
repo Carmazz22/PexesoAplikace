@@ -29,7 +29,8 @@ namespace PexesoAplikaceWF
                 JObject defaultSettings = new JObject
                 {
                     ["pocet_hracu"] = 1,
-                    ["ai_obt"] = "lehka"
+                    ["ai_obt"] = "lehka",
+                    ["barevny_rezim"] = "bily"
                 };
                 File.WriteAllText(cestaNastaveni, defaultSettings.ToString());
             }
@@ -60,6 +61,46 @@ namespace PexesoAplikaceWF
             Button btnPotvrdit = new Button { Text = "Potvrdit", Location = new Point(120, y + 10), Size = new Size(100, 30) };
             btnPotvrdit.Click += BtnPotvrdit_Click;
             this.Controls.Add(btnPotvrdit);
+
+            AplikujTmavyRezim();
+        }
+
+        private void AplikujTmavyRezim()
+        {
+            if (File.Exists(cestaNastaveni))
+            {
+                try
+                {
+                    string json = File.ReadAllText(cestaNastaveni);
+                    JObject data = JObject.Parse(json);
+                    string barevnyRezim = (string)data["barevny_rezim"];
+
+                    if (barevnyRezim == "tmavy")
+                    {
+                        this.BackColor = Color.FromArgb(45, 45, 48);
+                        foreach (Control ctrl in this.Controls)
+                        {
+                            if (ctrl is Label)
+                            {
+                                ctrl.ForeColor = Color.White;
+                            }
+                            else if (ctrl is TextBox)
+                            {
+                                ctrl.BackColor = Color.FromArgb(30, 30, 30);
+                                ctrl.ForeColor = Color.White;
+                                ((TextBox)ctrl).BorderStyle = BorderStyle.FixedSingle;
+                            }
+                            else if (ctrl is Button)
+                            {
+                                ctrl.BackColor = Color.FromArgb(63, 63, 70);
+                                ctrl.ForeColor = Color.White;
+                                ((Button)ctrl).FlatStyle = FlatStyle.Flat;
+                            }
+                        }
+                    }
+                }
+                catch { }
+            }
         }
 
         private void BtnPotvrdit_Click(object sender, EventArgs e)
@@ -77,8 +118,11 @@ namespace PexesoAplikaceWF
 
             File.WriteAllText(cestaHraci, new JObject { ["hraci"] = jmena }.ToString());
 
+            string cestaSave = @"..\..\Config\savegame.json";
+            if (File.Exists(cestaSave)) File.Delete(cestaSave);
+
             this.Hide();
-            using (Game_Singleplayer hra = new Game_Singleplayer())
+            using (Game_Singleplayer hra = new Game_Singleplayer(false))
             {
                 hra.ShowDialog();
             }

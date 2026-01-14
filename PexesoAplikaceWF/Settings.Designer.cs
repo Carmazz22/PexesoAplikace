@@ -39,6 +39,8 @@
             this.label5 = new System.Windows.Forms.Label();
             this.combo_vzhled = new System.Windows.Forms.ComboBox();
             this.button_return = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.comboBarvy = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -161,7 +163,7 @@
             "tmp_1",
             "tmp_2",
             "tmp_3"});
-            this.combo_vzhled.Location = new System.Drawing.Point(97, 123);
+            this.combo_vzhled.Location = new System.Drawing.Point(97, 119);
             this.combo_vzhled.Name = "combo_vzhled";
             this.combo_vzhled.Size = new System.Drawing.Size(121, 21);
             this.combo_vzhled.TabIndex = 13;
@@ -171,7 +173,7 @@
             // button_return
             // 
             this.button_return.ForeColor = System.Drawing.Color.Black;
-            this.button_return.Location = new System.Drawing.Point(12, 152);
+            this.button_return.Location = new System.Drawing.Point(12, 174);
             this.button_return.Name = "button_return";
             this.button_return.Size = new System.Drawing.Size(75, 23);
             this.button_return.TabIndex = 14;
@@ -179,11 +181,37 @@
             this.button_return.UseVisualStyleBackColor = true;
             this.button_return.Click += new System.EventHandler(this.button_return_Click);
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.ForeColor = System.Drawing.Color.Black;
+            this.label6.Location = new System.Drawing.Point(12, 148);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(69, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Režim barev ";
+            // 
+            // comboBarvy
+            // 
+            this.comboBarvy.ForeColor = System.Drawing.Color.Black;
+            this.comboBarvy.FormattingEnabled = true;
+            this.comboBarvy.Items.AddRange(new object[] {
+            "Světlý",
+            "Tmavý"});
+            this.comboBarvy.Location = new System.Drawing.Point(97, 148);
+            this.comboBarvy.Name = "comboBarvy";
+            this.comboBarvy.Size = new System.Drawing.Size(121, 21);
+            this.comboBarvy.TabIndex = 16;
+            this.comboBarvy.Text = "Světlý";
+            this.comboBarvy.SelectedIndexChanged += new System.EventHandler(this.comboBarvy_SelectedIndexChanged);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.comboBarvy);
+            this.Controls.Add(this.label6);
             this.Controls.Add(this.button_return);
             this.Controls.Add(this.combo_vzhled);
             this.Controls.Add(this.label5);
@@ -218,5 +246,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox combo_vzhled;
         private System.Windows.Forms.Button button_return;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.ComboBox comboBarvy;
     }
 }

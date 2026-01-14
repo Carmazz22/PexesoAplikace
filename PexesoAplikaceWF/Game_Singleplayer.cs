@@ -33,8 +33,15 @@ namespace PexesoAplikaceWF
         private Timer aiTimer;
         private Image atlasObrazku;
 
-        public Game_Singleplayer()
+        private string barevnyRezim = "bily";
+
+        private bool nactiUlozenouHru = false;
+
+
+
+        public Game_Singleplayer(bool nactiHru)
         {
+            nactiUlozenouHru = nactiHru;
             InitializeComponent();
             this.Size = new Size(1150, 850);
             this.Text = "Pexeso - Trojice";
@@ -56,12 +63,25 @@ namespace PexesoAplikaceWF
             }
         }
 
+
+
         private void Game_Singleplayer_Load(object sender, EventArgs e)
         {
             NactiData();
             InicilizujBocniPanel();
-            PripravHru();
+
+            if (nactiUlozenouHru)
+            {
+                NactiHru();
+            }
+            else
+            {
+                PripravHru();
+            }
+
+            AktualizujVzhled();
         }
+
 
         private void NactiData()
         {
@@ -76,6 +96,9 @@ namespace PexesoAplikaceWF
                         celkovyPocetKaret = (int)nastaveni["pocet_karet"];
                     else
                         celkovyPocetKaret = 30;
+
+                    if (nastaveni["barevny_rezim"] != null)
+                        barevnyRezim = (string)nastaveni["barevny_rezim"];
                 }
                 else
                 {
@@ -194,6 +217,7 @@ namespace PexesoAplikaceWF
                 herniPoleProSave.Add(btn);
             }
             AktualizujZvyrazneniHrace();
+
         }
 
         private Image ZiskejVyrez(int index)
@@ -204,7 +228,7 @@ namespace PexesoAplikaceWF
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.Clear(Color.Transparent);
-                // VODOROVNÝ POSUN: X se mění podle indexu, Y je vždy 0
+                //posun
                 int srcX = index * 256;
                 Rectangle zdroj = new Rectangle(srcX, 0, 256, 256);
                 Rectangle cil = new Rectangle(0, 0, 256, 256);
@@ -305,6 +329,35 @@ namespace PexesoAplikaceWF
             AktualizujZvyrazneniHrace();
         }
 
+        private void AktualizujVzhled()
+        {
+            if (barevnyRezim == "tmavy")
+            {
+                this.BackColor = Color.FromArgb(45, 45, 48);
+                bocniPanel.BackColor = Color.FromArgb(30, 30, 30);
+                foreach (Control ctrl in bocniPanel.Controls)
+                {
+                    if (ctrl is Label)
+                    {
+                        ctrl.ForeColor = Color.White;
+                    }
+                }
+            }
+            else
+            {
+                this.BackColor = SystemColors.Control;
+                bocniPanel.BackColor = Color.WhiteSmoke;
+                foreach (Control ctrl in bocniPanel.Controls)
+                {
+                    if (ctrl is Label)
+                    {
+                        ctrl.ForeColor = Color.Black;
+                    }
+                }
+            }
+            AktualizujZvyrazneniHrace();
+        }
+
         private void AktualizujZvyrazneniHrace()
         {
             for (int i = 0; i < labelyHracu.Count; i++)
@@ -317,10 +370,19 @@ namespace PexesoAplikaceWF
                 else
                 {
                     labelyHracu[i].BackColor = Color.Transparent;
-                    labelyHracu[i].ForeColor = Color.Black;
+                    if (barevnyRezim == "tmavy")
+                    {
+                        labelyHracu[i].ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        labelyHracu[i].ForeColor = Color.Black;
+                    }
                 }
             }
         }
+
+
 
         private void ProvedTahAIEvent(object sender, EventArgs e)
         {
@@ -343,17 +405,23 @@ namespace PexesoAplikaceWF
 
         private void UlozHru()
         {
+            var stavKaret = herniPoleProSave.Select(b => new {
+                Tag = (int)b.Tag,
+                Aktivni = vsechnyKarty.Contains(b)
+            }).ToList();
+
             var saveObjekt = new
             {
                 AktualniHracIndex = aktualniHracIndex,
                 Hraci = jmenaHracu,
                 Skore = skoreHracu,
-                PocetKaret = celkovyPocetKaret
+                PocetKaret = celkovyPocetKaret,
+                Karty = stavKaret
             };
 
             try
             {
-                string json = JsonConvert.SerializeObject(saveObjekt, Formatting.Indented);
+                string json = JsonConvert.SerializeObject(saveObjekt, Newtonsoft.Json.Formatting.Indented);
                 File.WriteAllText(cestaSave, json);
                 MessageBox.Show("Hra byla uložena!", "Uložení");
             }
@@ -361,6 +429,52 @@ namespace PexesoAplikaceWF
             {
                 MessageBox.Show("Chyba při ukládání.", "Chyba");
             }
+        }
+
+        private void NactiHru()
+        {
+            if (!File.Exists(cestaSave)) return;
+
+            string json = File.ReadAllText(cestaSave);
+            JObject save = JObject.Parse(json);
+
+            aktualniHracIndex = (int)save["AktualniHracIndex"];
+            celkovyPocetKaret = (int)save["PocetKaret"];
+            jmenaHracu = save["Hraci"].ToObject<List<string>>();
+            skoreHracu = save["Skore"].ToObject<int[]>();
+
+            JArray karty = (JArray)save["Karty"];
+            int pocetSloupcu = 6;
+            if (celkovyPocetKaret == 45) pocetSloupcu = 9;
+            if (celkovyPocetKaret == 60) pocetSloupcu = 10;
+
+            vsechnyKarty.Clear();
+            herniPoleProSave.Clear();
+
+            for (int i = 0; i < karty.Count; i++)
+            {
+                int tagValue = (int)karty[i]["Tag"];
+                bool jeAktivni = (bool)karty[i]["Aktivni"];
+
+                Button btn = new Button();
+                btn.Size = new Size(80, 80);
+                btn.Left = (i % pocetSloupcu) * 85 + 20;
+                btn.Top = (i / pocetSloupcu) * 85 + 20;
+                btn.Tag = tagValue;
+                btn.BackColor = Color.LightSkyBlue;
+                btn.BackgroundImageLayout = ImageLayout.Stretch;
+                btn.FlatStyle = FlatStyle.Flat;
+                btn.Click += Karta_Click;
+
+                herniPoleProSave.Add(btn);
+                if (jeAktivni)
+                {
+                    this.Controls.Add(btn);
+                    vsechnyKarty.Add(btn);
+                }
+            }
+            AktualizujUI();
+            AktualizujVzhled();
         }
 
         private void KonecHry()

@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Menu1));
             this.button_newGame = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button_multi = new System.Windows.Forms.Button();
+            this.button_load = new System.Windows.Forms.Button();
             this.button_score = new System.Windows.Forms.Button();
             this.button_exit = new System.Windows.Forms.Button();
             this.button_settings = new System.Windows.Forms.Button();
@@ -60,16 +60,17 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "PEXESO";
             // 
-            // button_multi
+            // button_load
             // 
-            this.button_multi.Font = new System.Drawing.Font("OpenSymbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_multi.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.button_multi.Location = new System.Drawing.Point(263, 154);
-            this.button_multi.Name = "button_multi";
-            this.button_multi.Size = new System.Drawing.Size(250, 74);
-            this.button_multi.TabIndex = 2;
-            this.button_multi.Text = "Otevřít hru";
-            this.button_multi.UseVisualStyleBackColor = true;
+            this.button_load.Font = new System.Drawing.Font("OpenSymbol", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_load.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.button_load.Location = new System.Drawing.Point(263, 154);
+            this.button_load.Name = "button_load";
+            this.button_load.Size = new System.Drawing.Size(250, 74);
+            this.button_load.TabIndex = 2;
+            this.button_load.Text = "Otevřít hru";
+            this.button_load.UseVisualStyleBackColor = true;
+            this.button_load.Click += new System.EventHandler(this.button_load_Click);
             // 
             // button_score
             // 
@@ -118,7 +119,7 @@
             this.Controls.Add(this.button_settings);
             this.Controls.Add(this.button_exit);
             this.Controls.Add(this.button_score);
-            this.Controls.Add(this.button_multi);
+            this.Controls.Add(this.button_load);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_newGame);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -135,7 +136,7 @@
 
         private System.Windows.Forms.Button button_newGame;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button_multi;
+        private System.Windows.Forms.Button button_load;
         private System.Windows.Forms.Button button_score;
         private System.Windows.Forms.Button button_exit;
         private System.Windows.Forms.Button button_settings;
