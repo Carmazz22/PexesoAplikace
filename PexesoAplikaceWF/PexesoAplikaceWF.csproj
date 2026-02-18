@@ -163,5 +163,12 @@
   <ItemGroup>
     <None Include="Resources\background.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\menu_tlacitko.png" />
+    <Content Include="Resources\PexesoSheet1.png" />
+    <Content Include="Resources\PexesoSheet2.png" />
+    <Content Include="Resources\PexesoSheet3.png" />
+    <Content Include="Resources\testPexesoSheet.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
