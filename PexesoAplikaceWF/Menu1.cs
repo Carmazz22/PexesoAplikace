@@ -100,10 +100,14 @@ namespace PexesoAplikaceWF
         {
             string cestaSave = @"..\..\Config\savegame.json";
 
+            // Kontrola, zda soubor vůbec existuje
             if (File.Exists(cestaSave))
             {
-                Game_Singleplayer hra = new Game_Singleplayer(true); 
-                hra.Show();
+                // Místo přímého spuštění hry otevřeme okno se seznamem her
+                LoadGame oknoNacitani = new LoadGame();
+                oknoNacitani.Show();
+
+                // Skryjeme aktuální menu
                 this.Hide();
             }
             else

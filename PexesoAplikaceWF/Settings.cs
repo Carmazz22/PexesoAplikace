@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Diagnostics.Eventing.Reader;
-using System.IO;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace PexesoAplikaceWF
@@ -16,6 +16,199 @@ namespace PexesoAplikaceWF
             InitializeComponent();
         }
 
+        private void Settings_Load(object sender, EventArgs e)
+        {
+            if (!File.Exists(cesta))
+            {
+                VytvorVychoziSettings();
+            }
+
+            try
+            {
+                string json = File.ReadAllText(cesta);
+                JObject data = JObject.Parse(json);
+
+                // 1. Pocet hracu
+                if (data["pocet_hracu"] != null)
+                {
+                    int pocet_hracu = (int)data["pocet_hracu"];
+                    if (pocet_hracu > 0 && combo_pocet_hracu.Items.Count >= pocet_hracu)
+                    {
+                        combo_pocet_hracu.SelectedIndex = pocet_hracu - 1;
+                    }
+                    else
+                    {
+                        combo_pocet_hracu.SelectedIndex = 0;
+                    }
+                }
+
+                // 2. Zvuk
+                if (data["zvuk"] != null)
+                {
+                    int zvuk = (int)data["zvuk"];
+                    if (zvuk == 1)
+                    {
+                        combo_zvuk.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        combo_zvuk.SelectedIndex = 1;
+                    }
+                }
+
+                // 3. Obtiznost AI
+                if (data["ai_obt"] != null)
+                {
+                    string ai_obt = (string)data["ai_obt"];
+                    if (ai_obt == "lehka")
+                    {
+                        combo_dif.SelectedIndex = 0;
+                    }
+                    else if (ai_obt == "tezka")
+                    {
+                        combo_dif.SelectedIndex = 2;
+                    }
+                    else
+                    {
+                        combo_dif.SelectedIndex = 1;
+                    }
+                }
+
+                // 4. Pocet karet
+                if (data["pocet_karet"] != null)
+                {
+                    string pocetKaretStr = data["pocet_karet"].ToString();
+                    if (pocetKaretStr == "30")
+                    {
+                        combo_pocet.SelectedIndex = 0;
+                    }
+                    else if (pocetKaretStr == "45")
+                    {
+                        combo_pocet.SelectedIndex = 1;
+                    }
+                    else if (pocetKaretStr == "51")
+                    {
+                        combo_pocet.SelectedIndex = 2;
+                    }
+                    else
+                    {
+                        combo_pocet.SelectedIndex = 0;
+                    }
+                }
+
+                // 5. Vzhled karet
+                if (data["vzhled_karet"] != null)
+                {
+                    int vzhled = (int)data["vzhled_karet"];
+                    if (vzhled >= 1 && vzhled <= 3)
+                    {
+                        combo_vzhled.SelectedIndex = vzhled - 1;
+                    }
+                    else
+                    {
+                        combo_vzhled.SelectedIndex = 0;
+                    }
+                }
+                else
+                {
+                    combo_vzhled.SelectedIndex = 0;
+                }
+
+                // 6. Barevny rezim
+                if (data["barevny_rezim"] != null)
+                {
+                    string barevnyRezim = (string)data["barevny_rezim"];
+                    if (barevnyRezim == "bily")
+                    {
+                        comboBarvy.SelectedIndex = 0;
+                    }
+                    else
+                    {
+                        comboBarvy.SelectedIndex = 1;
+                    }
+                    AktualizujVzhled(barevnyRezim);
+                }
+                else
+                {
+                    AktualizujVzhled("bily");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Chyba při načítání nastavení: " + ex.Message);
+            }
+        }
+
+        private void combo_pocet_hracu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int pocet = combo_pocet_hracu.SelectedIndex + 1;
+            UlozDoJsonu("pocet_hracu", pocet);
+        }
+
+        private void combo_zvuk_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int hodnota;
+            if (combo_zvuk.SelectedIndex == 0)
+            {
+                hodnota = 1;
+            }
+            else
+            {
+                hodnota = 2;
+            }
+            UlozDoJsonu("zvuk", hodnota);
+        }
+
+        private void combo_dif_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string hodnota = "normalni";
+
+            if (combo_dif.SelectedIndex == 0)
+            {
+                hodnota = "lehka";
+            }
+            else if (combo_dif.SelectedIndex == 2)
+            {
+                hodnota = "tezka";
+            }
+            else
+            {
+                hodnota = "normalni";
+            }
+
+            UlozDoJsonu("ai_obt", hodnota);
+        }
+
+        private void combo_pocet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (combo_pocet.SelectedItem != null)
+            {
+                UlozDoJsonu("pocet_karet", combo_pocet.SelectedItem.ToString());
+            }
+        }
+
+        private void combo_vzhled_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Ulozi 1, 2 nebo 3 podle indexu (0, 1, 2)
+            UlozDoJsonu("vzhled_karet", combo_vzhled.SelectedIndex + 1);
+        }
+
+        private void comboBarvy_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string rezim;
+            if (comboBarvy.SelectedIndex == 0)
+            {
+                rezim = "bily";
+            }
+            else
+            {
+                rezim = "tmavy";
+            }
+
+            UlozDoJsonu("barevny_rezim", rezim);
+            AktualizujVzhled(rezim);
+        }
+
         private void button_return_Click(object sender, EventArgs e)
         {
             Menu1 menu = new Menu1();
@@ -23,198 +216,97 @@ namespace PexesoAplikaceWF
             this.Hide();
         }
 
-        private void Settings_Load(object sender, EventArgs e)
+        private void UlozDoJsonu(string klic, object hodnota)
         {
-            if (!File.Exists(cesta))
+            try
             {
-                MessageBox.Show("Soubor settings.json nebyl nalezen!");
-                return;
-            }
+                string json = "";
+                JObject data;
 
-            string json = File.ReadAllText(cesta);
-            JObject data = JObject.Parse(json);
+                if (File.Exists(cesta))
+                {
+                    json = File.ReadAllText(cesta);
+                    data = JObject.Parse(json);
+                }
+                else
+                {
+                    data = new JObject();
+                }
 
-            int pocet_hracu = (int)data["pocet_hracu"];
-            int zvuk = (int)data["zvuk"];
-            string ai_obt = (string)data["ai_obt"];
-            int pocet_karet = (int)data["pocet_karet"];
-            int vzhled_karet = (int)data["vzhled_karet"];
-            string barevnyRezim = (string)data["barevny_rezim"];
-
-            switch (pocet_hracu)
-            {
-                case 1:
-                    combo_pocet_hracu.SelectedIndex = 0;
-                    break;
-                case 2:
-                    combo_pocet_hracu.SelectedIndex = 1;
-                    break;
-                case 3:
-                    combo_pocet_hracu.SelectedIndex = 2;
-                    break;
-                case 4:
-                    combo_pocet_hracu.SelectedIndex = 3;
-                    break;
-                case 5:
-                    combo_pocet_hracu.SelectedIndex = 4;
-                    break;
-                case 6:
-                    combo_pocet_hracu.SelectedIndex = 5;
-                    break;
-                default:
-                    combo_pocet_hracu.SelectedIndex = 0;
-                    break;
+                data[klic] = JToken.FromObject(hodnota);
+                File.WriteAllText(cesta, data.ToString(Formatting.Indented));
             }
-
-            if (zvuk == 1)
+            catch
             {
-                combo_zvuk.SelectedIndex = 0;
             }
-            else
-            {
-                combo_zvuk.SelectedIndex = 1;
-            }
-
-            if (ai_obt == "lehka")
-            {
-                combo_dif.SelectedIndex = 0;
-            }
-            else if (ai_obt == "normalni")
-            {
-                combo_dif.SelectedIndex = 1;
-            }
-            else if (ai_obt == "tezka")
-            {
-                combo_dif.SelectedIndex = 2;
-            }
-            else
-            {
-                combo_dif.SelectedIndex = 0;
-            }
-
-            if (pocet_karet == 30)
-            {
-                combo_pocet.SelectedIndex = 0;
-            }
-            else if (pocet_karet == 45)
-            {
-                combo_pocet.SelectedIndex = 1;
-            }
-            else if (pocet_karet == 51)
-            {
-                combo_pocet.SelectedIndex = 2;
-            }
-            else
-            {
-                combo_pocet.SelectedIndex = 0;
-            }
-
-            combo_vzhled.SelectedIndex = Math.Max(0, Math.Min(vzhled_karet - 1, combo_vzhled.Items.Count - 1));
-
-            if (barevnyRezim == "bily")
-            {
-                comboBarvy.SelectedIndex = 0;
-            }
-            else
-            {
-                comboBarvy.SelectedIndex = 1;
-            }
-
-            AktualizujVzhled(barevnyRezim);
         }
 
         private void AktualizujVzhled(string rezim)
         {
+            Color pozadi;
+            Color text;
+
             if (rezim == "tmavy")
             {
-                this.BackColor = Color.FromArgb(45, 45, 48);
-                this.ForeColor = Color.White;
-
-                foreach (Control prvek in this.Controls)
-                {
-                    prvek.ForeColor = Color.White;
-                    if (prvek is Label)
-                    {
-                        prvek.BackColor = Color.Transparent;
-                    }
-                    else
-                    {
-                        prvek.BackColor = Color.FromArgb(30, 30, 30);
-                    }
-                }
+                pozadi = Color.FromArgb(45, 45, 48);
+                text = Color.White;
             }
             else
             {
-                this.BackColor = Color.White;
-                this.ForeColor = Color.Black;
+                pozadi = Color.White;
+                text = Color.Black;
+            }
 
-                foreach (Control prvek in this.Controls)
+            this.BackColor = pozadi;
+            this.ForeColor = text;
+
+            foreach (Control c in this.Controls)
+            {
+                if (c is Label)
                 {
-                    prvek.ForeColor = Color.Black;
-                    if (prvek is Label)
+                    c.ForeColor = text;
+                }
+
+                if (c is Button)
+                {
+                    if (rezim == "tmavy")
                     {
-                        prvek.BackColor = Color.Transparent;
+                        c.BackColor = Color.FromArgb(60, 60, 60);
                     }
                     else
                     {
-                        prvek.BackColor = Color.White;
+                        c.BackColor = Color.White;
                     }
+                    c.ForeColor = text;
+                }
+
+                if (c is ComboBox)
+                {
+                    if (rezim == "tmavy")
+                    {
+                        c.BackColor = Color.FromArgb(60, 60, 60);
+                    }
+                    else
+                    {
+                        c.BackColor = Color.White;
+                    }
+                    c.ForeColor = text;
                 }
             }
         }
 
-        private void combo_pocet_hracu_SelectedIndexChanged(object sender, EventArgs e)
+        private void VytvorVychoziSettings()
         {
-            JObject data = JObject.Parse(File.ReadAllText(cesta));
-            data["pocet_hracu"] = 1 + combo_pocet_hracu.SelectedIndex;
-            File.WriteAllText(cesta, data.ToString(Newtonsoft.Json.Formatting.Indented));
-        }
-
-        private void combo_zvuk_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            JObject data = JObject.Parse(File.ReadAllText(cesta));
-            data["zvuk"] = 1 + combo_zvuk.SelectedIndex;
-            File.WriteAllText(cesta, data.ToString(Newtonsoft.Json.Formatting.Indented));
-        }
-
-        private void combo_dif_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            JObject data = JObject.Parse(File.ReadAllText(cesta));
-            data["ai_obt"] = combo_dif.Items[combo_dif.SelectedIndex].ToString();
-            File.WriteAllText(cesta, data.ToString(Newtonsoft.Json.Formatting.Indented));
-        }
-
-        private void combo_pocet_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            JObject data = JObject.Parse(File.ReadAllText(cesta));
-            data["pocet_karet"] = combo_pocet.Items[combo_pocet.SelectedIndex].ToString();
-            File.WriteAllText(cesta, data.ToString(Newtonsoft.Json.Formatting.Indented));
-        }
-
-        private void combo_vzhled_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            JObject data = JObject.Parse(File.ReadAllText(cesta));
-            data["vzhled_karet"] = combo_vzhled.Items[combo_vzhled.SelectedIndex].ToString();
-            File.WriteAllText(cesta, data.ToString(Newtonsoft.Json.Formatting.Indented));
-        }
-
-        private void comboBarvy_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            JObject data = JObject.Parse(File.ReadAllText(cesta));
-            string vybranyRezim = "bily";
-
-            if (comboBarvy.SelectedIndex == 0)
+            var data = new
             {
-                vybranyRezim = "bily";
-            }
-            else
-            {
-                vybranyRezim = "tmavy";
-            }
-
-            data["barevny_rezim"] = vybranyRezim;
-            File.WriteAllText(cesta, data.ToString(Newtonsoft.Json.Formatting.Indented));
-            AktualizujVzhled(vybranyRezim);
+                pocet_hracu = 1,
+                zvuk = 1,
+                ai_obt = "normalni",
+                pocet_karet = "30",
+                vzhled_karet = 1,
+                barevny_rezim = "bily"
+            };
+            File.WriteAllText(cesta, JsonConvert.SerializeObject(data, Formatting.Indented));
         }
     }
 }

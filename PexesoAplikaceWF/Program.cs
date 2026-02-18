@@ -8,9 +8,6 @@ namespace PexesoAplikaceWF
 {
     internal static class Program
     {
-        /// <summary>  
-        /// Hlavní vstupní bod aplikace.  
-        /// </summary>  
         [STAThread]
         static void Main()
         {
@@ -25,16 +22,24 @@ namespace PexesoAplikaceWF
 
         private static void OnApplicationExit(object sender, EventArgs e)
         {
-            // Cleanup logic if needed before application exits  
         }
 
         private static void CheckFormsVisibility(object sender, EventArgs e)
         {
-            if (Application.OpenForms.Count == 0)
+            bool naselSeViditelnyForm = false;
+
+            foreach (Form f in Application.OpenForms)
+            {
+                if (f.Visible == true)
+                {
+                    naselSeViditelnyForm = true;
+                }
+            }
+
+            if (naselSeViditelnyForm == false)
             {
                 Application.Exit();
             }
         }
     }
 }
-
