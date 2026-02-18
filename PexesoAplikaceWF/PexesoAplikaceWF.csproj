@@ -164,7 +164,9 @@
     <None Include="Resources\background.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\background1.png" />
     <Content Include="Resources\menu_tlacitko.png" />
+    <None Include="Resources\menu_tlacitko11.png" />
     <Content Include="Resources\PexesoSheet1.png" />
     <Content Include="Resources\PexesoSheet2.png" />
     <Content Include="Resources\PexesoSheet3.png" />

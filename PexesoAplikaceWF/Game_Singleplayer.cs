@@ -34,7 +34,7 @@ namespace PexesoAplikaceWF
         private Timer vyhodnocovaciTimer;
         private Timer aiTimer;
         private Image atlasObrazku;
-        private Image zadniStrana = Properties.Resources.menu_tlacitko;
+        private Image zadniStrana = Properties.Resources.menu_tlacitko1;
 
         private string barevnyRezim = "bily";
         private string nastaveniObtiznosti = "Normalni";
