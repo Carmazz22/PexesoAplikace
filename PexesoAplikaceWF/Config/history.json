@@ -1,0 +1,18 @@
+[
+  {
+    "GameID": "0ce839c1-e98a-43e7-a3ea-a1cb107f67a9",
+    "Datum": "2026-02-18T22:22:23.1206621+01:00",
+    "Hrac": "Implicitní",
+    "Vysledek": "Výhra",
+    "PocetKaret": 10,
+    "CelkemKaretVeHre": 30
+  },
+  {
+    "GameID": "0ce839c1-e98a-43e7-a3ea-a1cb107f67a9",
+    "Datum": "2026-02-18T22:22:23.1206621+01:00",
+    "Hrac": "AI",
+    "Vysledek": "Prohra",
+    "PocetKaret": 0,
+    "CelkemKaretVeHre": 30
+  }
+]

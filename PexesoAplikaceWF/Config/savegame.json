@@ -1,0 +1,137 @@
+{
+  "Hra1": {
+    "Datum": "2026-02-18T23:44:27.0277066+01:00",
+    "AktualniHracIndex": 0,
+    "Hraci": [
+      "Implicitní",
+      "AI"
+    ],
+    "Skore": [
+      1,
+      0
+    ],
+    "PocetKaret": 30,
+    "Karty": [
+      {
+        "Tag": 4,
+        "Aktivni": true
+      },
+      {
+        "Tag": 6,
+        "Aktivni": true
+      },
+      {
+        "Tag": 3,
+        "Aktivni": true
+      },
+      {
+        "Tag": 6,
+        "Aktivni": true
+      },
+      {
+        "Tag": 0,
+        "Aktivni": true
+      },
+      {
+        "Tag": 1,
+        "Aktivni": true
+      },
+      {
+        "Tag": 9,
+        "Aktivni": false
+      },
+      {
+        "Tag": 7,
+        "Aktivni": true
+      },
+      {
+        "Tag": 9,
+        "Aktivni": false
+      },
+      {
+        "Tag": 4,
+        "Aktivni": true
+      },
+      {
+        "Tag": 7,
+        "Aktivni": true
+      },
+      {
+        "Tag": 5,
+        "Aktivni": true
+      },
+      {
+        "Tag": 3,
+        "Aktivni": true
+      },
+      {
+        "Tag": 8,
+        "Aktivni": true
+      },
+      {
+        "Tag": 5,
+        "Aktivni": true
+      },
+      {
+        "Tag": 1,
+        "Aktivni": true
+      },
+      {
+        "Tag": 2,
+        "Aktivni": true
+      },
+      {
+        "Tag": 4,
+        "Aktivni": true
+      },
+      {
+        "Tag": 8,
+        "Aktivni": true
+      },
+      {
+        "Tag": 1,
+        "Aktivni": true
+      },
+      {
+        "Tag": 8,
+        "Aktivni": true
+      },
+      {
+        "Tag": 5,
+        "Aktivni": true
+      },
+      {
+        "Tag": 7,
+        "Aktivni": true
+      },
+      {
+        "Tag": 3,
+        "Aktivni": true
+      },
+      {
+        "Tag": 9,
+        "Aktivni": false
+      },
+      {
+        "Tag": 0,
+        "Aktivni": true
+      },
+      {
+        "Tag": 6,
+        "Aktivni": true
+      },
+      {
+        "Tag": 0,
+        "Aktivni": true
+      },
+      {
+        "Tag": 2,
+        "Aktivni": true
+      },
+      {
+        "Tag": 2,
+        "Aktivni": true
+      }
+    ]
+  }
+}
