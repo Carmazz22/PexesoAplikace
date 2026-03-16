@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PexesoAplikaceWF.Properties
+namespace PEXESO.Properties
 {
 
 

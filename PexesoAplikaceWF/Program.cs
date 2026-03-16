@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PexesoAplikaceWF
+namespace PEXESO
 {
     internal static class Program
     {
@@ -17,7 +17,7 @@ namespace PexesoAplikaceWF
             Application.ApplicationExit += OnApplicationExit;
             Application.Idle += CheckFormsVisibility;
 
-            Application.Run(new Menu1());
+            Application.Run(new Main());
         }
 
         private static void OnApplicationExit(object sender, EventArgs e)
