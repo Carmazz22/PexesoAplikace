@@ -1,65 +1,109 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 
-namespace PexesoAplikaceWF
+namespace PEXESO.Resources
 {
     public class AI
+
+    // 0 - lehká, 1 - normální, 2 - těžká
     {
-        public enum Obtiznost
-        {
-            Lehka,
-            Normalni,
-            Tezka
-        }
+        private byte obtiznost;
+        private Random rnd; // Random pojmenovat vždy rnd
+        private Button[,] pamet; // 2D pole [100 tagů, 3 fyzické karty]
 
-        private Obtiznost obtiznost;
-        private Random rng;
-        private Dictionary<int, List<Button>> pamet;
-
-        public AI(Obtiznost zvolenaObtiznost)
+        public AI(byte zvolenaObtiznost)
         {
             obtiznost = zvolenaObtiznost;
-            rng = new Random();
-            pamet = new Dictionary<int, List<Button>>();
+            rnd = new Random();
+            pamet = new Button[100, 3];
         }
 
         public void VidelJsemKartu(Button karta)
         {
-            if (obtiznost == Obtiznost.Lehka) return;
+            if (obtiznost == 0) // Lehká
+            {
+                return; // Lehká si nepamatuje nic
+            }
 
             int sanceZapamatovani = 0;
 
-            if (obtiznost == Obtiznost.Normalni) sanceZapamatovani = 40;
-            if (obtiznost == Obtiznost.Tezka) sanceZapamatovani = 90;
+            if (obtiznost == 1) // Normální
+            {
+                sanceZapamatovani = 20; // 20% šance na zapamatování
+            }
+            else if (obtiznost == 2) // Těžká
+            {
+                sanceZapamatovani = 55; // 55% šance na zapamatování
+            }
 
-            if (rng.Next(0, 100) < sanceZapamatovani)
+            if (rnd.Next(0, 100) < sanceZapamatovani)//Pokud je náhodný číslo menší než 
             {
                 int id = (int)karta.Tag;
-                if (!pamet.ContainsKey(id))
+
+                // Kontrola, zda už kartu v paměti nemáme zapsanou z dřívějška
+                bool uzZapsano = false;
+                for (int i = 0; i < 3; i++)
                 {
-                    pamet[id] = new List<Button>();
+                    if (pamet[id, i] == karta)
+                    {
+                        uzZapsano = true;
+                    }
                 }
 
-                if (!pamet[id].Contains(karta))
+                // Pokud není, najdeme první volný sloupeček (null) a uložíme si ji
+                if (uzZapsano == false)
                 {
-                    pamet[id].Add(karta);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        if (pamet[id, i] == null)
+                        {
+                            pamet[id, i] = karta;
+                            break; // Dál už nehledáme, uloženo
+                        }
+                    }
                 }
             }
         }
 
         public void OdstranKartyZPameti(List<Button> karty)
         {
+            // Pokud kdokoliv získá bod, tyto karty už nejsou ve hře. Vynulujeme jejich paměť.
             foreach (Button btn in karty)
             {
                 int id = (int)btn.Tag;
-                if (pamet.ContainsKey(id))
+                for (int i = 0; i < 3; i++)
                 {
-                    pamet[id].Remove(btn);
-                    if (pamet[id].Count == 0)
+                    if (pamet[id, i] == btn)
                     {
-                        pamet.Remove(id);
+                        pamet[id, i] = null;
+                    }
+                }
+            }
+        }
+
+        // Pomocná metoda pro kompletní pročištění paměti před tahem (kdyby nám protihráč něco vyfoukl)
+        private void AktualizujPametPodleHry(List<Button> dostupneKarty)
+        {
+            for (int radek = 0; radek < 100; radek++)
+            {
+                for (int sloupec = 0; sloupec < 3; sloupec++)
+                {
+                    if (pamet[radek, sloupec] != null)
+                    {
+                        bool staleDostupna = false;
+                        foreach (Button k in dostupneKarty)
+                        {
+                            if (k == pamet[radek, sloupec])
+                            {
+                                staleDostupna = true;
+                            }
+                        }
+
+                        if (staleDostupna == false)
+                        {
+                            pamet[radek, sloupec] = null;
+                        }
                     }
                 }
             }
@@ -67,64 +111,106 @@ namespace PexesoAplikaceWF
 
         public List<Button> NavrhniTah(List<Button> dostupneKarty)
         {
-            if (obtiznost == Obtiznost.Lehka)
-            {
-                return dostupneKarty.OrderBy(x => rng.Next()).Take(3).ToList();
-            }
+            List<Button> vybraneKarty = new List<Button>();
 
-            foreach (KeyValuePair<int, List<Button>> zaznam in pamet)
+            if (obtiznost == 0) // Lehká obtížnost
             {
-                List<Button> znameKarty = zaznam.Value.Where(k => dostupneKarty.Contains(k)).ToList();
-
-                if (znameKarty.Count == 3)
+                // Lehká jen vybere 3 naprosto náhodné karty (přes cykly bez LINQ)
+                while (vybraneKarty.Count < 3)
                 {
-                    return znameKarty;
-                }
-            }
+                    Button nahodna = dostupneKarty[rnd.Next(dostupneKarty.Count)];
 
-            foreach (KeyValuePair<int, List<Button>> zaznam in pamet)
-            {
-                List<Button> znameKarty = zaznam.Value.Where(k => dostupneKarty.Contains(k)).ToList();
-
-                if (znameKarty.Count == 2)
-                {
-                    List<Button> vysledek = new List<Button>(znameKarty);
-                    List<Button> zbytek = dostupneKarty.Except(vysledek).ToList();
-
-                    if (zbytek.Count > 0)
+                    bool uzVybrana = false;
+                    foreach (Button v in vybraneKarty)
                     {
-                        vysledek.Add(zbytek[rng.Next(zbytek.Count)]);
-                        return vysledek;
+                        if (v == nahodna)
+                        {
+                            uzVybrana = true;
+                        }
+                    }
+
+                    if (uzVybrana == false)
+                    {
+                        vybraneKarty.Add(nahodna);
+                        Main main = new Main();
+                        main.prehratZvuk(1);
+                    }
+                }
+                return vybraneKarty;
+            }
+
+            // Normální a Těžká si nejdřív zkontrolují paměť
+            AktualizujPametPodleHry(dostupneKarty);
+
+            // 1. KROK: Hledání JISTOTY (Mám k nějakému ID už uložené všechny 3 karty?)
+            for (int i = 0; i < 100; i++)
+            {
+                if (pamet[i, 0] != null)
+                {
+                    if (pamet[i, 1] != null)
+                    {
+                        if (pamet[i, 2] != null)
+                        {
+                            // Máme plnou trojici!
+                            vybraneKarty.Add(pamet[i, 0]);
+                            vybraneKarty.Add(pamet[i, 1]);
+                            vybraneKarty.Add(pamet[i, 2]);
+                            return vybraneKarty;
+                        }
                     }
                 }
             }
 
-            List<Button> nahodnyVyber = new List<Button>();
-            Button prvni = dostupneKarty[rng.Next(dostupneKarty.Count)];
-            nahodnyVyber.Add(prvni);
+            // 2. KROK: Pokud není 100% jistota, vezme první kartu náhodně a zkusí dohledat zbytek
+            Button prvniKarta = dostupneKarty[rnd.Next(dostupneKarty.Count)];
+            vybraneKarty.Add(prvniKarta);
 
-            int hledaneId = (int)prvni.Tag;
+            int hledaneId = (int)prvniKarta.Tag;
 
-            if (pamet.ContainsKey(hledaneId))
+            // Podíváme se, jestli v paměti k tomuto tagu nemáme zbylé (jednu nebo dvě) karty
+            for (int i = 0; i < 3; i++)
             {
-                List<Button> znameShody = pamet[hledaneId].Where(k => k != prvni && dostupneKarty.Contains(k)).ToList();
-                foreach (Button shoda in znameShody)
+                if (pamet[hledaneId, i] != null)
                 {
-                    if (nahodnyVyber.Count < 3)
+                    if (pamet[hledaneId, i] != prvniKarta)
                     {
-                        nahodnyVyber.Add(shoda);
+                        bool kartaUzVeVyberu = false;
+                        foreach (Button b in vybraneKarty)
+                        {
+                            if (b == pamet[hledaneId, i])
+                            {
+                                kartaUzVeVyberu = true;
+                            }
+                        }
+
+                        if (kartaUzVeVyberu == false)
+                        {
+                            vybraneKarty.Add(pamet[hledaneId, i]);
+                        }
                     }
                 }
             }
 
-            while (nahodnyVyber.Count < 3)
+            // 3. KROK: Doplnění zbytku tahů naprosto náhodně (pokud paměť nepomohla najít celou trojici)
+            while (vybraneKarty.Count < 3)
             {
-                List<Button> zbytek = dostupneKarty.Except(nahodnyVyber).ToList();
-                if (zbytek.Count == 0) break;
-                nahodnyVyber.Add(zbytek[rng.Next(zbytek.Count)]);
+                Button nahodneDoplneni = dostupneKarty[rnd.Next(dostupneKarty.Count)];
+                bool kartaUzVeVyberu = false;
+                foreach (Button b in vybraneKarty)
+                {
+                    if (b == nahodneDoplneni)
+                    {
+                        kartaUzVeVyberu = true;
+                    }
+                }
+
+                if (kartaUzVeVyberu == false)
+                {
+                    vybraneKarty.Add(nahodneDoplneni);
+                }
             }
 
-            return nahodnyVyber;
+            return vybraneKarty;
         }
     }
 }

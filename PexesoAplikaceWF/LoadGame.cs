@@ -115,7 +115,7 @@ namespace PexesoAplikaceWF
                 string nazevHry = dgvUlozeneHry.SelectedRows[0].Cells["Nazev"].Value.ToString();
 
                 // Spustíme hru a předáme jí název savu
-                Game_Singleplayer hra = new Game_Singleplayer(nazevHry);
+                Game hra = new Game(nazevHry);
                 hra.Show();
                 this.Close();
             }

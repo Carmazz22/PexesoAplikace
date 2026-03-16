@@ -65,11 +65,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI.cs" />
-    <Compile Include="Game_Singleplayer.cs">
+    <Compile Include="Game.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Game_Singleplayer.Designer.cs">
-      <DependentUpon>Game_Singleplayer.cs</DependentUpon>
+    <Compile Include="Game.Designer.cs">
+      <DependentUpon>Game.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadGame.cs">
       <SubType>Form</SubType>
@@ -117,8 +117,8 @@
     <EmbeddedResource Include="Score.resx">
       <DependentUpon>Score.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Game_Singleplayer.resx">
-      <DependentUpon>Game_Singleplayer.cs</DependentUpon>
+    <EmbeddedResource Include="Game.resx">
+      <DependentUpon>Game.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

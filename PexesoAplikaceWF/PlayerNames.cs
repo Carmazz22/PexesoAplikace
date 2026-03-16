@@ -122,7 +122,7 @@ namespace PexesoAplikaceWF
             if (File.Exists(cestaSave)) File.Delete(cestaSave);
 
             this.Hide();
-            using (Game_Singleplayer hra = new Game_Singleplayer())
+            using (Game hra = new Game())
             {
                 hra.ShowDialog();
             }

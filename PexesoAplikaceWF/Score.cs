@@ -259,7 +259,7 @@ namespace PexesoAplikaceWF
 
         private void button_play_Click(object sender, EventArgs e)
         {
-            Form Game_Singleplayer = new Game_Singleplayer(null);
+            Form Game_Singleplayer = new Game(null);
             Game_Singleplayer.Show();
             this.Hide();
         }
