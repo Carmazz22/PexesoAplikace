@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace PEXESO.Forms
 {
-    // Třída pro držení načtených dat jednoho hráče
+    // Třída pro uložení dat jednoho hráče načteného z databáze
     public class ZaznamHrace
     {
         public string Jmeno;
@@ -29,16 +29,16 @@ namespace PEXESO.Forms
 
         private void Score_Load(object sender, EventArgs e)
         {
-            // Vycentrování celého obsahu doprostřed obrazovky
+            // Vycentrování hlavního panelu na střed obrazovky
             panel1.Location = new Point((this.ClientSize.Width - panel1.Width) / 2, 50);
 
-            // Nastavení možností pro filtrování
+            // Příprava možností do výběru filtru
             comboBoxFiltr.Items.Add("Jméno");
             comboBoxFiltr.Items.Add("Výhry");
             comboBoxFiltr.Items.Add("Prohry");
             comboBoxFiltr.Items.Add("Nasbírané karty");
 
-            // Defaultně se vybere filtrování podle výher
+            // Nastavení výchozí hodnoty pro combobox
             comboBoxFiltr.SelectedIndex = 1;
 
             NactiHistorii();
@@ -47,17 +47,19 @@ namespace PEXESO.Forms
 
         private void NactiHistorii()
         {
+            // Zkontrolujeme, jestli databáze vůbec existuje
             if (File.Exists(cestaHistorie))
             {
                 FileStream fs = new FileStream(cestaHistorie, FileMode.Open, FileAccess.Read);
                 BinaryReader br = new BinaryReader(fs);
 
+                // Zkontrolujeme, jestli soubor není prázdný
                 if (fs.Length > 0)
                 {
-                    // Přečteme, kolik hráčů v databázi celkem je
+                    // Přečteme celkový počet uložených profilů hráčů
                     int pocetZaznamu = br.ReadInt32();
 
-                    // Postupně načteme všechny hráče a jejich statistiky
+                    // V cyklu načteme všechny hráče přesně v tom pořadí, v jakém se zapsali v Game.cs
                     for (int i = 0; i < pocetZaznamu; i++)
                     {
                         ZaznamHrace hrac = new ZaznamHrace();
@@ -77,18 +79,17 @@ namespace PEXESO.Forms
 
         private void btnFiltrovat_Click(object sender, EventArgs e)
         {
-            // Zjištění, jak chce uživatel data seřadit
             string zvolenyFiltr = comboBoxFiltr.SelectedItem.ToString();
             bool nejmensiPoNejvetsi = checkBoxRazeni.Checked;
 
-            // Jednoduchý manuální algoritmus pro seřazení (Bubble Sort)
-            // Nepoužíváme žádné pokročilé funkce ani lambdy
+            // Klasický Bubble Sort pro seřazení bez použití zakázaného LINQu
             for (int i = 0; i < hraciSkore.Count - 1; i++)
             {
                 for (int j = 0; j < hraciSkore.Count - i - 1; j++)
                 {
                     bool prohodit = false;
 
+                    // Rozhodování podle vybraného filtru
                     if (zvolenyFiltr == "Jméno")
                     {
                         int porovnani = string.Compare(hraciSkore[j].Jmeno, hraciSkore[j + 1].Jmeno);
@@ -135,7 +136,7 @@ namespace PEXESO.Forms
                         }
                     }
 
-                    // Pokud jsme zjistili, že pořadí je špatně, prohodíme je
+                    // Fyzické prohození prvků v seznamu
                     if (prohodit)
                     {
                         ZaznamHrace docasny = hraciSkore[j];
@@ -145,16 +146,16 @@ namespace PEXESO.Forms
                 }
             }
 
-            // Po seřazení seznamu aktualizujeme tabulku na obrazovce
+            // Aplikování nového pořadí do tabulky na obrazovce
             AktualizujTabulku();
         }
 
         private void AktualizujTabulku()
         {
-            // Smažeme staré záznamy
+            // Promažeme staré zobrazení
             dataGridViewSkore.Rows.Clear();
 
-            // Vypíšeme nově seřazený seznam
+            // Vypíšeme celý seznam znovu v aktuálním pořadí
             for (int i = 0; i < hraciSkore.Count; i++)
             {
                 dataGridViewSkore.Rows.Add(

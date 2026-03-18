@@ -12,6 +12,7 @@ namespace PEXESO.Forms
 {
     public partial class Game : Form
     {
+        #region Proměnné a Inicializace
         string cestaHraci = @"..\..\Config\seznamHracu.dat";
         string cestaNastaveni = @"..\..\Config\settings.dat";
         string cestaHistorie = @"..\..\Config\history.dat";
@@ -89,67 +90,9 @@ namespace PEXESO.Forms
                 Inicializace_AI();
             }
         }
+        #endregion
 
-        private void Game_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Multiply)
-            {
-                OdkrytKarty();
-            }
-            if (e.Shift)
-            {
-                if (e.KeyCode == Keys.D8)
-                {
-                    OdkrytKarty();
-                }
-            }
-        }
-
-        private void OdkrytKarty()
-        {
-            if (debugRezim)
-            {
-                debugRezim = false;
-            }
-            else
-            {
-                debugRezim = true;
-            }
-
-            foreach (Button btn in vsechnyKarty)
-            {
-                if (debugRezim)
-                {
-                    int index = (int)btn.Tag;
-                    btn.BackgroundImage = kartaZistkatObrazek(index);
-                    btn.Text = "";
-                }
-                else
-                {
-                    bool vybrana = false;
-                    foreach (Button vybraneButtony in vybraneKarty)
-                    {
-                        if (vybraneButtony == btn)
-                        {
-                            vybrana = true;
-                        }
-                    }
-
-                    if (!vybrana)
-                    {
-                        btn.BackgroundImage = null;
-                        int indexKarty = int.Parse(btn.Name.Substring(5));
-                        btn.Text = (indexKarty + 1).ToString();
-                    }
-                    else
-                    {
-                        btn.BackgroundImage = kartaZistkatObrazek((int)btn.Tag);
-                        btn.Text = "";
-                    }
-                }
-            }
-        }
-
+        #region Načtení dat + AI
         private void NactiData()
         {
             if (File.Exists(cestaNastaveni))
@@ -166,15 +109,15 @@ namespace PEXESO.Forms
                     vzhled = br.ReadByte();
                     rezimBarev = br.ReadByte();
 
-                    if (vzhled == 0)
+                    if (vzhled == 1)
                     {
                         cestaAtlas = @"..\..\Resources\PexesoSheet1.png";
                     }
-                    else if (vzhled == 1)
+                    else if (vzhled == 2)
                     {
                         cestaAtlas = @"..\..\Resources\PexesoSheet2.png";
                     }
-                    else if (vzhled == 2)
+                    else if (vzhled == 3)
                     {
                         cestaAtlas = @"..\..\Resources\PexesoSheet3.png";
                     }
@@ -230,7 +173,9 @@ namespace PEXESO.Forms
         {
             AI = new AI(obtiznostAI);
         }
+        #endregion
 
+        #region UI a Vykreslování
         Color barvaTlacitek = Color.FromArgb(245, 245, 245);
         Color barvaTextu = Color.FromArgb(0, 0, 0);
 
@@ -382,13 +327,27 @@ namespace PEXESO.Forms
 
         private void BtnMenu_Click(object sender, EventArgs e)
         {
-            Main main = new Main();
-            main.prehratZvuk(0);
-            DialogResult dotaz = MessageBox.Show("Opravdu chcete odejít do menu?", "Návrat do Menu", MessageBoxButtons.YesNo);
-            if (dotaz == DialogResult.Yes)
+            if (this.Parent is Main main)
             {
                 main.prehratZvuk(0);
-                main.OtevreniFormu(new PEXESO.Forms.Menu());
+                DialogResult dotaz = MessageBox.Show("Opravdu chcete odejít do menu?", "Návrat do Menu", MessageBoxButtons.YesNo);
+                if (dotaz == DialogResult.Yes)
+                {
+                    main.OtevreniFormu(new PEXESO.Forms.Menu());
+                }
+            }
+        }
+
+        private void BtnUlozit_Click(object sender, EventArgs e)
+        {
+            if (this.Parent is Main main)
+            {
+                main.prehratZvuk(0);
+            }
+            string nazev = ZobrazFormSavegame("Uložit hru", "Název uložené hry: ", "Hra1");
+            if (!string.IsNullOrWhiteSpace(nazev))
+            {
+                UlozHru(nazev);
             }
         }
 
@@ -422,6 +381,103 @@ namespace PEXESO.Forms
             }
         }
 
+        private void AktualizujUI()
+        {
+            for (int i = 0; i < labelyHracu.Count; i++)
+            {
+                labelyHracu[i].Text = jmenaHracu[i] + ": " + skoreHracu[i];
+            }
+            AktualizujZvyrazneniHrace();
+        }
+
+        private void AktualizujZvyrazneniHrace()
+        {
+            for (int i = 0; i < labelyHracu.Count; i++)
+            {
+                if (i == aktualniHracIndex)
+                {
+                    labelyHracu[i].ForeColor = Color.Red;
+                    labelyHracu[i].Font = new Font("Roboto", 10, FontStyle.Bold);
+                }
+                else
+                {
+                    labelyHracu[i].Font = new Font("Roboto", 10, FontStyle.Bold);
+                    if (rezimBarev == 1)
+                    {
+                        labelyHracu[i].ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        labelyHracu[i].ForeColor = Color.FromArgb(64, 64, 64);
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Klávesové zkratky a Debug
+        private void Game_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Multiply)
+            {
+                OdkrytKarty();
+            }
+            if (e.Shift)
+            {
+                if (e.KeyCode == Keys.D8)
+                {
+                    OdkrytKarty();
+                }
+            }
+        }
+
+        private void OdkrytKarty()
+        {
+            if (debugRezim)
+            {
+                debugRezim = false;
+            }
+            else
+            {
+                debugRezim = true;
+            }
+
+            foreach (Button btn in vsechnyKarty)
+            {
+                if (debugRezim)
+                {
+                    int index = (int)btn.Tag;
+                    btn.BackgroundImage = kartaZistkatObrazek(index);
+                    btn.Text = "";
+                }
+                else
+                {
+                    bool vybrana = false;
+                    foreach (Button vybraneButtony in vybraneKarty)
+                    {
+                        if (vybraneButtony == btn)
+                        {
+                            vybrana = true;
+                        }
+                    }
+
+                    if (!vybrana)
+                    {
+                        btn.BackgroundImage = null;
+                        int indexKarty = int.Parse(btn.Name.Substring(5));
+                        btn.Text = (indexKarty + 1).ToString();
+                    }
+                    else
+                    {
+                        btn.BackgroundImage = kartaZistkatObrazek((int)btn.Tag);
+                        btn.Text = "";
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region Logika Karet a Hry
         private void VytvorKartu(int i, int tagValue, int pocetSloupcu, bool jeAktivni)
         {
             Button btn = new Button();
@@ -534,21 +590,26 @@ namespace PEXESO.Forms
                     return;
                 }
             }
-            ZpracujKliknuti((Button)sender);
+            ZpracujKliknuti(sender as Button);
         }
 
         private void ZpracujKliknuti(Button btn)
         {
-            bool kartaUzVybrana = false;
+            if (btn == null)
+            {
+                return;
+            }
+
+            bool uzVybrana = false;
             foreach (Button vybrana in vybraneKarty)
             {
                 if (vybrana == btn)
                 {
-                    kartaUzVybrana = true;
+                    uzVybrana = true;
                 }
             }
 
-            if (kartaUzVybrana)
+            if (uzVybrana)
             {
                 return;
             }
@@ -571,12 +632,13 @@ namespace PEXESO.Forms
             }
 
             btn.Refresh();
-            vybraneKarty.Add(btn);
 
             if (this.Parent is Main main)
             {
                 main.prehratZvuk(1);
             }
+
+            vybraneKarty.Add(btn);
 
             if (vybraneKarty.Count == 3)
             {
@@ -590,13 +652,9 @@ namespace PEXESO.Forms
             TimerVyhodnoceni.Stop();
             bool shoda = false;
 
-            int tag1 = (int)vybraneKarty[0].Tag;
-            int tag2 = (int)vybraneKarty[1].Tag;
-            int tag3 = (int)vybraneKarty[2].Tag;
-
-            if (tag1 == tag2)
+            if (vybraneKarty[0].Tag.ToString() == vybraneKarty[1].Tag.ToString())
             {
-                if (tag2 == tag3)
+                if (vybraneKarty[1].Tag.ToString() == vybraneKarty[2].Tag.ToString())
                 {
                     shoda = true;
                 }
@@ -609,12 +667,10 @@ namespace PEXESO.Forms
                     main.prehratZvuk(2);
                 }
                 skoreHracu[aktualniHracIndex]++;
-
                 if (AI != null)
                 {
                     AI.OdstranKartyZPameti(vybraneKarty);
                 }
-
                 foreach (Button btn in vybraneKarty)
                 {
                     vsechnyKarty.Remove(btn);
@@ -636,12 +692,11 @@ namespace PEXESO.Forms
                         btn.BackgroundImage = null;
                         int indexKarty = int.Parse(btn.Name.Substring(5));
                         btn.Text = (indexKarty + 1).ToString();
-
-                        if (this.Parent is Main main)
-                        {
-                            main.prehratZvuk(3);
-                        }
                     }
+                }
+                if (this.Parent is Main mainFail)
+                {
+                    mainFail.prehratZvuk(3);
                 }
                 aktualniHracIndex = (aktualniHracIndex + 1) % jmenaHracu.Count;
             }
@@ -666,43 +721,9 @@ namespace PEXESO.Forms
             }
         }
 
-        private void AktualizujUI()
-        {
-            for (int i = 0; i < labelyHracu.Count; i++)
-            {
-                labelyHracu[i].Text = jmenaHracu[i] + ": " + skoreHracu[i];
-            }
-            AktualizujZvyrazneniHrace();
-        }
-
-        private void AktualizujZvyrazneniHrace()
-        {
-            for (int i = 0; i < labelyHracu.Count; i++)
-            {
-                if (i == aktualniHracIndex)
-                {
-                    labelyHracu[i].ForeColor = Color.Red;
-                    labelyHracu[i].Font = new Font("Roboto", 10, FontStyle.Bold);
-                }
-                else
-                {
-                    labelyHracu[i].Font = new Font("Roboto", 10, FontStyle.Bold);
-                    if (rezimBarev == 1)
-                    {
-                        labelyHracu[i].ForeColor = Color.White;
-                    }
-                    else
-                    {
-                        labelyHracu[i].ForeColor = Color.FromArgb(64, 64, 64);
-                    }
-                }
-            }
-        }
-
         private void AI_tah(object sender, EventArgs e)
         {
             aiTimer.Stop();
-
             if (vsechnyKarty.Count < 3)
             {
                 return;
@@ -720,17 +741,31 @@ namespace PEXESO.Forms
             }
         }
 
-        private void BtnUlozit_Click(object sender, EventArgs e)
+        private void KonecHry()
         {
-            Main main = new Main();
-            main.prehratZvuk(0);
-            string nazev = ZobrazFormSavegame("Uložit hru", "Název uložené hry: ", "Hra1");
-            if (!string.IsNullOrWhiteSpace(nazev))
+            int maxSkore = skoreHracu[0];
+            string vitez = jmenaHracu[0];
+
+            for (int i = 1; i < skoreHracu.Length; i++)
             {
-                UlozHru(nazev);
+                if (skoreHracu[i] > maxSkore)
+                {
+                    maxSkore = skoreHracu[i];
+                    vitez = jmenaHracu[i];
+                }
+            }
+
+            UlozVysledkyDoHistorie(vitez);
+            MessageBox.Show("Vítěz: " + vitez, "Konec hry");
+
+            if (this.Parent is Main main)
+            {
+                main.OtevreniFormu(new PEXESO.Forms.Menu());
             }
         }
+        #endregion
 
+        #region Ukládání a načítání hry
         public static string ZobrazFormSavegame(string nadpis, string text, string temporary)
         {
             Form savegameDialog = new Form();
@@ -760,6 +795,7 @@ namespace PEXESO.Forms
             btn_Ok.Width = 100;
             btn_Ok.Top = 90;
             btn_Ok.DialogResult = DialogResult.OK;
+            btn_Ok.Click += delegate (object s, EventArgs ev) { savegameDialog.Close(); };
 
             savegameDialog.Controls.Add(textBox);
             savegameDialog.Controls.Add(btn_Ok);
@@ -776,7 +812,6 @@ namespace PEXESO.Forms
             }
         }
 
-        // Pomocna metoda pro zobrazeni dialogu k prepsani jedne z ulozenych pozic
         public static int ZobrazFormPrepsatSave()
         {
             Form prepisDialog = new Form();
@@ -822,25 +857,14 @@ namespace PEXESO.Forms
             prepisDialog.Controls.Add(combo);
             prepisDialog.Controls.Add(btnOk);
             prepisDialog.Controls.Add(btnZrusit);
-
             prepisDialog.AcceptButton = btnOk;
 
             if (prepisDialog.ShowDialog() == DialogResult.OK)
             {
-                if (combo.SelectedIndex == 0)
-                {
-                    return 1;
-                }
-                else if (combo.SelectedIndex == 1)
-                {
-                    return 2;
-                }
-                else if (combo.SelectedIndex == 2)
-                {
-                    return 3;
-                }
+                if (combo.SelectedIndex == 0) return 1;
+                else if (combo.SelectedIndex == 1) return 2;
+                else if (combo.SelectedIndex == 2) return 3;
             }
-
             return 0;
         }
 
@@ -853,18 +877,18 @@ namespace PEXESO.Forms
             for (int i = 1; i <= 3; i++)
             {
                 string soubor = @"..\..\Config\savegame" + i + ".dat";
-
                 if (File.Exists(soubor))
                 {
                     FileStream fsTest = new FileStream(soubor, FileMode.Open, FileAccess.Read);
                     BinaryReader brTest = new BinaryReader(fsTest);
-                    string nactenyNazev = brTest.ReadString();
+                    string testNazev = brTest.ReadString();
                     brTest.Close();
                     fsTest.Close();
 
-                    if (nactenyNazev == nazevHry)
+                    if (testNazev == nazevHry)
                     {
                         existujiciSoubor = soubor;
+                        break;
                     }
                 }
                 else
@@ -878,9 +902,15 @@ namespace PEXESO.Forms
 
             if (!string.IsNullOrEmpty(existujiciSoubor))
             {
-                // Pokud hra existuje, pouze upozornime a ukoncime ukadani
-                MessageBox.Show("Hra s tímto názvem již existuje. Zvolte prosím jiný název.", "Upozornění");
-                return;
+                DialogResult vysledek = MessageBox.Show("Hra již existuje. Přepsat?", "Duplikát", MessageBoxButtons.YesNo);
+                if (vysledek == DialogResult.Yes)
+                {
+                    souborKZapisu = existujiciSoubor;
+                }
+                else
+                {
+                    return;
+                }
             }
             else if (!string.IsNullOrEmpty(volnySoubor))
             {
@@ -888,23 +918,13 @@ namespace PEXESO.Forms
             }
             else
             {
-                // Vsechny pozice jsou plne, ptame se uzivatele, co chce prepsat
-                int volba = ZobrazFormPrepsatSave();
-                if (volba == 1)
+                int cisloSouboru = ZobrazFormPrepsatSave();
+                if (cisloSouboru > 0)
                 {
-                    souborKZapisu = @"..\..\Config\savegame1.dat";
-                }
-                else if (volba == 2)
-                {
-                    souborKZapisu = @"..\..\Config\savegame2.dat";
-                }
-                else if (volba == 3)
-                {
-                    souborKZapisu = @"..\..\Config\savegame3.dat";
+                    souborKZapisu = @"..\..\Config\savegame" + cisloSouboru + ".dat";
                 }
                 else
                 {
-                    // Uzivatel kliknul na zrusit
                     return;
                 }
             }
@@ -915,23 +935,17 @@ namespace PEXESO.Forms
             bw.Write(nazevHry);
             bw.Write(aktualniHracIndex);
             bw.Write(celkovyPocetKaret);
+            bw.Write((byte)jmenaHracu.Count);
 
-            byte ulozenyPocetHracu = (byte)jmenaHracu.Count;
-            bw.Write(ulozenyPocetHracu);
-
-            for (int i = 0; i < ulozenyPocetHracu; i++)
+            for (int i = 0; i < jmenaHracu.Count; i++)
             {
                 bw.Write(jmenaHracu[i]);
                 bw.Write(skoreHracu[i]);
             }
 
-            int pocetTlacitek = herniPoleProSave.Count;
-            bw.Write(pocetTlacitek);
-
-            for (int i = 0; i < pocetTlacitek; i++)
+            bw.Write(herniPoleProSave.Count);
+            foreach (Button b in herniPoleProSave)
             {
-                Button b = herniPoleProSave[i];
-
                 bool jeAktivni = false;
                 foreach (Button kartaVeHre in vsechnyKarty)
                 {
@@ -957,7 +971,6 @@ namespace PEXESO.Forms
             for (int i = 1; i <= 3; i++)
             {
                 string soubor = @"..\..\Config\savegame" + i + ".dat";
-
                 if (File.Exists(soubor))
                 {
                     FileStream fsTest = new FileStream(soubor, FileMode.Open, FileAccess.Read);
@@ -969,6 +982,7 @@ namespace PEXESO.Forms
                     if (testNazev == nazevHry)
                     {
                         spravnySoubor = soubor;
+                        break;
                     }
                 }
             }
@@ -1004,9 +1018,9 @@ namespace PEXESO.Forms
             vsechnyKarty.Clear();
             herniPoleProSave.Clear();
 
-            int pocetTlacitek = br.ReadInt32();
+            int pocetKaretUlozeno = br.ReadInt32();
 
-            for (int i = 0; i < pocetTlacitek; i++)
+            for (int i = 0; i < pocetKaretUlozeno; i++)
             {
                 bool jeAktivni = br.ReadBoolean();
                 int tagValue = br.ReadInt32();
@@ -1016,77 +1030,102 @@ namespace PEXESO.Forms
 
             br.Close();
             fsCteni.Close();
+
+            AktualizujUI();
         }
 
-        private void KonecHry()
+        private void UlozVysledkyDoHistorie(string vitez)
         {
-            int maxSkore = skoreHracu[0];
-            string vitez = jmenaHracu[0];
+            List<string> dbJmena = new List<string>();
+            List<int> dbVyhry = new List<int>();
+            List<int> dbProhry = new List<int>();
+            List<int> dbKarty = new List<int>();
 
-            for (int i = 1; i < skoreHracu.Length; i++)
+            if (File.Exists(cestaHistorie))
             {
-                if (skoreHracu[i] > maxSkore)
+                FileStream fsCteni = new FileStream(cestaHistorie, FileMode.Open, FileAccess.Read);
+                BinaryReader br = new BinaryReader(fsCteni);
+
+                if (fsCteni.Length > 0)
                 {
-                    maxSkore = skoreHracu[i];
-                    vitez = jmenaHracu[i];
+                    int pocetZaznamu = br.ReadInt32();
+                    for (int i = 0; i < pocetZaznamu; i++)
+                    {
+                        dbJmena.Add(br.ReadString());
+                        dbVyhry.Add(br.ReadInt32());
+                        dbProhry.Add(br.ReadInt32());
+                        dbKarty.Add(br.ReadInt32());
+                    }
                 }
-            }
 
-            ZapisVysledku(vitez);
-            MessageBox.Show("Vítěz: " + vitez, "Konec hry");
-            this.Close();
-        }
-
-        private void ZapisVysledku(string vitez)
-        {
-            FileStream fs = new FileStream(cestaHistorie, FileMode.Open, FileAccess.Write);
-            BinaryWriter bw = new BinaryWriter(fs);
-
-            int maxBody = skoreHracu[0];
-            for (int i = 1; i < skoreHracu.Length; i++)
-            {
-                if (skoreHracu[i] > maxBody)
-                {
-                    maxBody = skoreHracu[i];
-                }
-            }
-
-            int pocetHracuSMaximem = 0;
-            for (int i = 0; i < skoreHracu.Length; i++)
-            {
-                if (skoreHracu[i] == maxBody)
-                {
-                    pocetHracuSMaximem++;
-                }
+                br.Close();
+                fsCteni.Close();
             }
 
             for (int i = 0; i < jmenaHracu.Count; i++)
             {
                 string jmeno = jmenaHracu[i];
                 int body = skoreHracu[i];
-
                 string vysledek = "Prohra";
-                if (jmeno == vitez)
-                {
-                    vysledek = "Výhra";
-                }
+                if (jmeno == vitez) vysledek = "Výhra";
 
-                if (pocetHracuSMaximem > 1)
+                bool nalezen = false;
+                for (int j = 0; j < dbJmena.Count; j++)
                 {
-                    if (body == maxBody)
+                    if (dbJmena[j] == jmeno)
                     {
-                        vysledek = "Remíza";
+                        nalezen = true;
+                        dbKarty[j] += body;
+
+                        if (vysledek == "Výhra")
+                        {
+                            dbVyhry[j] += 1;
+                        }
+                        else if (vysledek == "Prohra")
+                        {
+                            dbProhry[j] += 1;
+                        }
                     }
                 }
 
-                string datumText = DateTime.Now.ToString("dd.MM.yyyy HH:mm");
-                string celyZaznam = datumText + " | Hrac: " + jmeno + " | Vysledek: " + vysledek + " | Zisk: " + body + " | Vsech karet: " + celkovyPocetKaret;
+                if (!nalezen)
+                {
+                    dbJmena.Add(jmeno);
+                    dbKarty.Add(body);
 
-                bw.Write(celyZaznam);
+                    if (vysledek == "Výhra")
+                    {
+                        dbVyhry.Add(1);
+                        dbProhry.Add(0);
+                    }
+                    else if (vysledek == "Prohra")
+                    {
+                        dbVyhry.Add(0);
+                        dbProhry.Add(1);
+                    }
+                    else
+                    {
+                        dbVyhry.Add(0);
+                        dbProhry.Add(0);
+                    }
+                }
+            }
+
+            FileStream fsZapis = new FileStream(cestaHistorie, FileMode.Create, FileAccess.Write);
+            BinaryWriter bw = new BinaryWriter(fsZapis);
+
+            bw.Write(dbJmena.Count);
+            for (int i = 0; i < dbJmena.Count; i++)
+            {
+                bw.Write(dbJmena[i]);
+                bw.Write(dbVyhry[i]);
+                bw.Write(dbProhry[i]);
+                bw.Write(dbKarty[i]);
             }
 
             bw.Close();
-            fs.Close();
+            fsZapis.Close();
         }
+        #endregion
     }
-}
+}   

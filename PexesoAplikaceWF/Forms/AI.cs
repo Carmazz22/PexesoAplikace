@@ -9,7 +9,7 @@ namespace PEXESO.Resources
     // 0 - lehká, 1 - normální, 2 - těžká
     {
         private byte obtiznost;
-        private Random rnd; // Random pojmenovat vždy rnd
+        private Random rnd; 
         private Button[,] pamet; // 2D pole [100 tagů, 3 fyzické karty]
 
         public AI(byte zvolenaObtiznost)
@@ -68,7 +68,7 @@ namespace PEXESO.Resources
 
         public void OdstranKartyZPameti(List<Button> karty)
         {
-            // Pokud kdokoliv získá bod, tyto karty už nejsou ve hře. Vynulujeme jejich paměť.
+            
             foreach (Button btn in karty)
             {
                 int id = (int)btn.Tag;
