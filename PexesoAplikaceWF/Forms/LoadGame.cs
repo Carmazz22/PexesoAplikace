@@ -24,7 +24,7 @@ namespace PEXESO.Forms
 
         private void VykresliUlozeneHry()
         {
-            int poziceY = 50;
+            int poziceY = 150;
             bool nalezenaHra = false;
 
             for (int i = 1; i <= 3; i++)
@@ -123,7 +123,7 @@ namespace PEXESO.Forms
             {
                 string nazevKNacteni = btn.Tag.ToString();
 
-                if (this.Parent is Main main)
+                if (this.Parent is PEXESO main)
                 {
                     Game novaHra = new Game(nazevKNacteni);
                     main.OtevreniFormu(novaHra);
@@ -133,9 +133,10 @@ namespace PEXESO.Forms
 
         private void btnDoMenu_Click(object sender, EventArgs e)
         {
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
-                main.OtevreniFormu(new PEXESO.Forms.Menu());
+                main.OtevreniFormu(new global::PEXESO.Forms.Menu());
+                main.prehratZvuk(0);
             }
         }
     }

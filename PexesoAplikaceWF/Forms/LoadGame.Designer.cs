@@ -37,6 +37,7 @@
             // 
             // panel1
             // 
+            this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel1.Controls.Add(this.btnDoMenu);
@@ -44,7 +45,7 @@
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(800, 550);
+            this.panel1.Size = new System.Drawing.Size(800, 1200);
             this.panel1.TabIndex = 0;
             // 
             // btnDoMenu

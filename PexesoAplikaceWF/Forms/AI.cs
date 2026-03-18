@@ -132,7 +132,7 @@ namespace PEXESO.Resources
                     if (uzVybrana == false)
                     {
                         vybraneKarty.Add(nahodna);
-                        Main main = new Main();
+                        PEXESO main = new PEXESO();
                         main.prehratZvuk(1);
                     }
                 }

@@ -43,8 +43,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.comboPocetHracu = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -53,6 +53,7 @@
             this.panel1.AutoSize = true;
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel1.Controls.Add(this.label10);
             this.panel1.Controls.Add(this.label9);
             this.panel1.Controls.Add(this.comboPocetKaret);
             this.panel1.Controls.Add(this.btnDoMenu);
@@ -67,7 +68,6 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.comboPocetHracu);
             this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(803, 550);
@@ -265,17 +265,6 @@
             this.label3.Text = "Nastavení";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.Font = new System.Drawing.Font("Roboto Condensed", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(260, 18);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(280, 78);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "PEXESO";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -286,6 +275,17 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Nastavení";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label10
+            // 
+            this.label10.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label10.Font = new System.Drawing.Font("Roboto Condensed", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label10.Location = new System.Drawing.Point(259, 18);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(280, 78);
+            this.label10.TabIndex = 15;
+            this.label10.Text = "PEXESO";
+            this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Settings
             // 
@@ -309,7 +309,6 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
@@ -325,5 +324,6 @@
         private System.Windows.Forms.Button btnDoMenu;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox comboPocetKaret;
+        private System.Windows.Forms.Label label10;
     }
 }

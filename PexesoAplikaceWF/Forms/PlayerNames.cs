@@ -95,7 +95,7 @@ namespace PEXESO.Forms
                     }
                 }
             }
-            if (this.Parent is Main main && vsechnyTextBoxyOK)
+            if (this.Parent is PEXESO main && vsechnyTextBoxyOK)
             {
                 main.prehratZvuk(0);
                 using (FileStream fs = new FileStream(cestaHraci, FileMode.Create, FileAccess.Write))
@@ -110,16 +110,16 @@ namespace PEXESO.Forms
                     }
                 }
                 MessageBox.Show("Hra se spouští!");
-                main.OtevreniFormu(new PEXESO.Forms.Game());
+                main.OtevreniFormu(new global::PEXESO.Forms.Game());
 
             }
         }
 
         private void btnDoMenu_Click(object sender, EventArgs e)
         {
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
-                main.OtevreniFormu(new PEXESO.Forms.Menu());
+                main.OtevreniFormu(new global::PEXESO.Forms.Menu());
                 main.prehratZvuk(0);
             }
         }

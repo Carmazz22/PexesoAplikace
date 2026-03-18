@@ -33,27 +33,27 @@ namespace PEXESO.Forms
 
         private void btnNewGame_Click(object sender, EventArgs e)
         {
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
-                main.OtevreniFormu(new PEXESO.Forms.PlayerNames());
+                main.OtevreniFormu(new global::PEXESO.Forms.PlayerNames());
                 main.prehratZvuk(0);
             }
         }
 
         private void btnLoadGame_Click(object sender, EventArgs e)
         {
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
-                main.OtevreniFormu(new PEXESO.Forms.LoadGame());
+                main.OtevreniFormu(new global::PEXESO.Forms.LoadGame());
                 main.prehratZvuk(0);
             }
         }
 
         private void btnTabulka_Click(object sender, EventArgs e)
         {
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
-                main.OtevreniFormu(new PEXESO.Forms.Score());
+                main.OtevreniFormu(new global::PEXESO.Forms.Score());
                 main.prehratZvuk(0);
             }
         }
@@ -61,9 +61,9 @@ namespace PEXESO.Forms
         private void btnNastaveni_Click(object sender, EventArgs e)
         {
             
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
-                main.OtevreniFormu(new PEXESO.Forms.Settings());
+                main.OtevreniFormu(new global::PEXESO.Forms.Settings());
                 main.prehratZvuk(0);
             }
         }
@@ -71,9 +71,9 @@ namespace PEXESO.Forms
         private void btnNapoveda_Click(object sender, EventArgs e)
         {
 
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
-                main.OtevreniFormu(new PEXESO.Forms.Tutorial());
+                main.OtevreniFormu(new global::PEXESO.Forms.Tutorial());
                 main.prehratZvuk(0);
             }
         }

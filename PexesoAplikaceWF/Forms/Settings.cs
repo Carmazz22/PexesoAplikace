@@ -75,9 +75,9 @@ namespace PEXESO.Forms
 
         private void btnDoMenu_Click(object sender, EventArgs e)
         {
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
-                main.OtevreniFormu(new PEXESO.Forms.Menu());
+                main.OtevreniFormu(new global::PEXESO.Forms.Menu());
                 main.prehratZvuk(0);
             }
         }
@@ -190,7 +190,7 @@ namespace PEXESO.Forms
 
             if (nacitani == false)
             {
-                if (this.Parent is Main main)
+                if (this.Parent is PEXESO main)
                 {
                     if (barevnyRezim == 0) // Světlý
                     {

@@ -9,7 +9,7 @@ using System.ComponentModel;
 
 namespace PEXESO
 {
-    public partial class Main : Form
+    public partial class PEXESO : Form
     {
 
         private Form aktivniForm = null;
@@ -20,7 +20,7 @@ namespace PEXESO
         byte zvuk;
         byte rezim;
 
-        public Main()
+        public PEXESO()
         {
             InitializeComponent();
             this.DoubleBuffered = true;
@@ -31,7 +31,7 @@ namespace PEXESO
         {
             AktualizacePreferenci();
 
-            OtevreniFormu(new PEXESO.Forms.Menu());
+            OtevreniFormu(new global::PEXESO.Forms.Menu());
         }
 
         // Nová veřejná metoda pro aktualizaci proměnné 'zvuk' ze souboru .dat
@@ -212,11 +212,11 @@ namespace PEXESO
             formular.BackgroundImageLayout = ImageLayout.Stretch;
 
             // Přepsaný switch na klasické if podmínky
-            if (formular is PEXESO.Forms.Menu || formular is PEXESO.Forms.Score)
+            if (formular is global::PEXESO.Forms.Menu || formular is global::PEXESO.Forms.Score)
             {
                 // Místo pro specifický kód
             }
-            else if (formular is PEXESO.Forms.PlayerNames || formular is PEXESO.Forms.Settings)
+            else if (formular is global::PEXESO.Forms.PlayerNames || formular is global::PEXESO.Forms.Settings)
             {
                 // Místo pro specifický kód
             }

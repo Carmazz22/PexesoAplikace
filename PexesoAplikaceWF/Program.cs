@@ -17,7 +17,7 @@ namespace PEXESO
             Application.ApplicationExit += OnApplicationExit;
             Application.Idle += CheckFormsVisibility;
 
-            Application.Run(new Main());
+            Application.Run(new PEXESO());
         }
 
         private static void OnApplicationExit(object sender, EventArgs e)

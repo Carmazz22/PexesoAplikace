@@ -2,7 +2,7 @@
 
 namespace PEXESO
 {
-    partial class Main
+    partial class PEXESO
     {
         /// <summary>
         /// Vyžaduje se proměnná návrháře.
@@ -32,7 +32,7 @@ namespace PEXESO
         {
             this.SuspendLayout();
             // 
-            // Main
+            // PEXESO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -40,7 +40,7 @@ namespace PEXESO
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1920, 1080);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "Main";
+            this.Name = "PEXESO";
             this.Text = "PEXESO";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Main_Load);

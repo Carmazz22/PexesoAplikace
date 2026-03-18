@@ -327,20 +327,20 @@ namespace PEXESO.Forms
 
         private void BtnMenu_Click(object sender, EventArgs e)
         {
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
                 main.prehratZvuk(0);
                 DialogResult dotaz = MessageBox.Show("Opravdu chcete odejít do menu?", "Návrat do Menu", MessageBoxButtons.YesNo);
                 if (dotaz == DialogResult.Yes)
                 {
-                    main.OtevreniFormu(new PEXESO.Forms.Menu());
+                    main.OtevreniFormu(new global::PEXESO.Forms.Menu());
                 }
             }
         }
 
         private void BtnUlozit_Click(object sender, EventArgs e)
         {
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
                 main.prehratZvuk(0);
             }
@@ -633,7 +633,7 @@ namespace PEXESO.Forms
 
             btn.Refresh();
 
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
                 main.prehratZvuk(1);
             }
@@ -662,7 +662,7 @@ namespace PEXESO.Forms
 
             if (shoda)
             {
-                if (this.Parent is Main main)
+                if (this.Parent is PEXESO main)
                 {
                     main.prehratZvuk(2);
                 }
@@ -694,7 +694,7 @@ namespace PEXESO.Forms
                         btn.Text = (indexKarty + 1).ToString();
                     }
                 }
-                if (this.Parent is Main mainFail)
+                if (this.Parent is PEXESO mainFail)
                 {
                     mainFail.prehratZvuk(3);
                 }
@@ -758,9 +758,9 @@ namespace PEXESO.Forms
             UlozVysledkyDoHistorie(vitez);
             MessageBox.Show("Vítěz: " + vitez, "Konec hry");
 
-            if (this.Parent is Main main)
+            if (this.Parent is PEXESO main)
             {
-                main.OtevreniFormu(new PEXESO.Forms.Menu());
+                main.OtevreniFormu(new global::PEXESO.Forms.Menu());
             }
         }
         #endregion
