@@ -40,10 +40,10 @@
             // 
             this.labelTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelTitle.Font = new System.Drawing.Font("Roboto Condensed", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTitle.Location = new System.Drawing.Point(200, 221);
+            this.labelTitle.Location = new System.Drawing.Point(274, 96);
             this.labelTitle.Name = "labelTitle";
             this.labelTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelTitle.Size = new System.Drawing.Size(400, 119);
+            this.labelTitle.Size = new System.Drawing.Size(267, 40);
             this.labelTitle.TabIndex = 5;
             this.labelTitle.Text = "Nápověda";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -52,9 +52,9 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.Font = new System.Drawing.Font("Roboto Condensed", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(260, 143);
+            this.label1.Location = new System.Drawing.Point(200, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(280, 78);
+            this.label1.Size = new System.Drawing.Size(400, 78);
             this.label1.TabIndex = 4;
             this.label1.Text = "PEXESO";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -77,7 +77,7 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Roboto Condensed", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(202, 311);
+            this.label2.Location = new System.Drawing.Point(208, 149);
             this.label2.Name = "label2";
             this.label2.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label2.Size = new System.Drawing.Size(58, 29);
@@ -87,6 +87,7 @@
             // btnDoMenu
             // 
             this.btnDoMenu.BackColor = System.Drawing.Color.White;
+            this.btnDoMenu.BackgroundImage = global::PEXESO.Properties.Resources.menu_sipka;
             this.btnDoMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDoMenu.Font = new System.Drawing.Font("Roboto Condensed", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnDoMenu.Location = new System.Drawing.Point(700, 0);

@@ -136,10 +136,10 @@
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.Font = new System.Drawing.Font("Roboto Condensed", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(260, 18);
+            this.label1.Font = new System.Drawing.Font("Roboto Condensed", 48F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(200, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(280, 78);
+            this.label1.Size = new System.Drawing.Size(400, 78);
             this.label1.TabIndex = 0;
             this.label1.Text = "PEXESO";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

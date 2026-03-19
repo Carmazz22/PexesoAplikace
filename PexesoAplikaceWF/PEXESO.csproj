@@ -71,7 +71,9 @@
     <Compile Include="Forms\PlayerNames.Designer.cs">
       <DependentUpon>PlayerNames.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Score.cs" />
+    <Compile Include="Forms\Score.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Forms\Score.Designer.cs">
       <DependentUpon>Score.cs</DependentUpon>
     </Compile>
@@ -148,6 +150,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\background1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_sipka1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\menu_sipka_bila.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

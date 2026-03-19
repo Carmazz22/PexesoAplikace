@@ -12,25 +12,25 @@
             }
             base.Dispose(disposing);
         }
+        //napodobit ostatní formy
 
         #region Windows Form Designer generated code
 
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.btnDoMenu = new System.Windows.Forms.Button();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelFiltr = new System.Windows.Forms.Label();
+            this.btnFiltrovat = new System.Windows.Forms.Button();
+            this.checkBoxRazeni = new System.Windows.Forms.CheckBox();
+            this.comboBoxFiltr = new System.Windows.Forms.ComboBox();
             this.dataGridViewSkore = new System.Windows.Forms.DataGridView();
             this.SloupecJmeno = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SloupecVyhry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SloupecProhry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SloupecKarty = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comboBoxFiltr = new System.Windows.Forms.ComboBox();
-            this.checkBoxRazeni = new System.Windows.Forms.CheckBox();
-            this.btnFiltrovat = new System.Windows.Forms.Button();
-            this.labelFiltr = new System.Windows.Forms.Label();
-
+            this.btnDoMenu = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkore)).BeginInit();
             this.SuspendLayout();
@@ -52,28 +52,6 @@
             this.panel1.Size = new System.Drawing.Size(1000, 800);
             this.panel1.TabIndex = 0;
             // 
-            // label1
-            // 
-            this.label1.Font = new System.Drawing.Font("Roboto", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.ForeColor = System.Drawing.Color.White;
-            this.label1.Location = new System.Drawing.Point(350, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(300, 80);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "PEXESO";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Roboto", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.ForeColor = System.Drawing.Color.White;
-            this.label3.Location = new System.Drawing.Point(350, 100);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(300, 40);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "SKÓRE HRÁČŮ";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // labelFiltr
             // 
             this.labelFiltr.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
@@ -84,28 +62,6 @@
             this.labelFiltr.TabIndex = 3;
             this.labelFiltr.Text = "Filtrovat podle:";
             this.labelFiltr.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // comboBoxFiltr
-            // 
-            this.comboBoxFiltr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxFiltr.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBoxFiltr.FormattingEnabled = true;
-            this.comboBoxFiltr.Location = new System.Drawing.Point(220, 170);
-            this.comboBoxFiltr.Name = "comboBoxFiltr";
-            this.comboBoxFiltr.Size = new System.Drawing.Size(200, 27);
-            this.comboBoxFiltr.TabIndex = 4;
-            // 
-            // checkBoxRazeni
-            // 
-            this.checkBoxRazeni.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.checkBoxRazeni.ForeColor = System.Drawing.Color.White;
-            this.checkBoxRazeni.Location = new System.Drawing.Point(440, 170);
-            this.checkBoxRazeni.Name = "checkBoxRazeni";
-            this.checkBoxRazeni.Size = new System.Drawing.Size(260, 30);
-            this.checkBoxRazeni.TabIndex = 5;
-            this.checkBoxRazeni.Text = "Od nejmenšího po největší";
-            this.checkBoxRazeni.UseVisualStyleBackColor = true;
-            this.checkBoxRazeni.Checked = true;
             // 
             // btnFiltrovat
             // 
@@ -119,6 +75,29 @@
             this.btnFiltrovat.Text = "APLIKOVAT FILTR";
             this.btnFiltrovat.UseVisualStyleBackColor = false;
             this.btnFiltrovat.Click += new System.EventHandler(this.btnFiltrovat_Click);
+            // 
+            // checkBoxRazeni
+            // 
+            this.checkBoxRazeni.Checked = true;
+            this.checkBoxRazeni.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxRazeni.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.checkBoxRazeni.ForeColor = System.Drawing.Color.White;
+            this.checkBoxRazeni.Location = new System.Drawing.Point(440, 170);
+            this.checkBoxRazeni.Name = "checkBoxRazeni";
+            this.checkBoxRazeni.Size = new System.Drawing.Size(260, 30);
+            this.checkBoxRazeni.TabIndex = 5;
+            this.checkBoxRazeni.Text = "Od nejmenšího po největší";
+            this.checkBoxRazeni.UseVisualStyleBackColor = true;
+            // 
+            // comboBoxFiltr
+            // 
+            this.comboBoxFiltr.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFiltr.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBoxFiltr.FormattingEnabled = true;
+            this.comboBoxFiltr.Location = new System.Drawing.Point(220, 170);
+            this.comboBoxFiltr.Name = "comboBoxFiltr";
+            this.comboBoxFiltr.Size = new System.Drawing.Size(200, 27);
+            this.comboBoxFiltr.TabIndex = 4;
             // 
             // dataGridViewSkore
             // 
@@ -179,19 +158,43 @@
             this.btnDoMenu.UseVisualStyleBackColor = false;
             this.btnDoMenu.Click += new System.EventHandler(this.btnDoMenu_Click);
             // 
+            // label3
+            // 
+            this.label3.Font = new System.Drawing.Font("Roboto Condensed", 24F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.Color.White;
+            this.label3.Location = new System.Drawing.Point(350, 100);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(300, 40);
+            this.label3.TabIndex = 2;
+            this.label3.Text = "SKÓRE HRÁČŮ";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.Font = new System.Drawing.Font("Roboto Condensed", 36F, System.Drawing.FontStyle.Bold);
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(350, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(300, 80);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "PEXESO";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Score
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.BackColor = System.Drawing.Color.Black;
+            this.BackgroundImage = global::PEXESO.Properties.Resources.background;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.panel1);
             this.Name = "Score";
             this.Text = "Score";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Score_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkore)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkore)).EndInit();
             this.ResumeLayout(false);
 
         }
