@@ -87,6 +87,7 @@
             // btnDoMenu
             // 
             this.btnDoMenu.BackColor = System.Drawing.Color.White;
+            this.btnDoMenu.BackgroundImage = global::PEXESO.Properties.Resources.menu_sipka;
             this.btnDoMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDoMenu.Font = new System.Drawing.Font("Roboto Condensed", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnDoMenu.Location = new System.Drawing.Point(700, 0);

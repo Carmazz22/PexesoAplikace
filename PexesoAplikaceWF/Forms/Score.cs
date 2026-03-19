@@ -9,13 +9,6 @@ using System.Windows.Forms;
 namespace PEXESO.Forms
 {
     
-    public class ZaznamHrace
-    {
-        public string Jmeno;
-        public int Vyhry;
-        public int Prohry;
-        public int NasbiraneKarty;
-    }
 
     public partial class Score : Form
     {
@@ -176,4 +169,12 @@ namespace PEXESO.Forms
             }
         }
     }
+    public class ZaznamHrace
+    {
+        public string Jmeno;
+        public int Vyhry;
+        public int Prohry;
+        public int NasbiraneKarty;
+    }
+
 }
