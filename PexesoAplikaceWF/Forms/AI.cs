@@ -5,12 +5,10 @@ using System.Windows.Forms;
 namespace PEXESO.Resources
 {
     public class AI
-
-    // 0 - lehká, 1 - normální, 2 - těžká
     {
         private byte obtiznost;
-        private Random rnd; 
-        private Button[,] pamet; // 2D pole [100 tagů, 3 fyzické karty]
+        private Random rnd;
+        private Button[,] pamet;
 
         public AI(byte zvolenaObtiznost)
         {
@@ -21,27 +19,26 @@ namespace PEXESO.Resources
 
         public void VidelJsemKartu(Button karta)
         {
-            if (obtiznost == 0) // Lehká
+            if (obtiznost == 0)
             {
-                return; // Lehká si nepamatuje nic
+                return;
             }
 
             int sanceZapamatovani = 0;
 
-            if (obtiznost == 1) // Normální
+            if (obtiznost == 1)
             {
-                sanceZapamatovani = 20; // 20% šance na zapamatování
+                sanceZapamatovani = 20;
             }
-            else if (obtiznost == 2) // Těžká
+            else if (obtiznost == 2)
             {
-                sanceZapamatovani = 55; // 55% šance na zapamatování
+                sanceZapamatovani = 55;
             }
 
-            if (rnd.Next(0, 100) < sanceZapamatovani)//Pokud je náhodný číslo menší než 
+            if (rnd.Next(0, 100) < sanceZapamatovani)
             {
                 int id = (int)karta.Tag;
 
-                // Kontrola, zda už kartu v paměti nemáme zapsanou z dřívějška
                 bool uzZapsano = false;
                 for (int i = 0; i < 3; i++)
                 {
@@ -51,7 +48,6 @@ namespace PEXESO.Resources
                     }
                 }
 
-                // Pokud není, najdeme první volný sloupeček (null) a uložíme si ji
                 if (uzZapsano == false)
                 {
                     for (int i = 0; i < 3; i++)
@@ -59,7 +55,7 @@ namespace PEXESO.Resources
                         if (pamet[id, i] == null)
                         {
                             pamet[id, i] = karta;
-                            break; // Dál už nehledáme, uloženo
+                            break;
                         }
                     }
                 }
@@ -68,7 +64,6 @@ namespace PEXESO.Resources
 
         public void OdstranKartyZPameti(List<Button> karty)
         {
-            
             foreach (Button btn in karty)
             {
                 int id = (int)btn.Tag;
@@ -82,7 +77,6 @@ namespace PEXESO.Resources
             }
         }
 
-        // Pomocná metoda pro kompletní pročištění paměti před tahem (kdyby nám protihráč něco vyfoukl)
         private void AktualizujPametPodleHry(List<Button> dostupneKarty)
         {
             for (int radek = 0; radek < 100; radek++)
@@ -113,9 +107,8 @@ namespace PEXESO.Resources
         {
             List<Button> vybraneKarty = new List<Button>();
 
-            if (obtiznost == 0) // Lehká obtížnost
+            if (obtiznost == 0)
             {
-                // Lehká jen vybere 3 naprosto náhodné karty (přes cykly bez LINQ)
                 while (vybraneKarty.Count < 3)
                 {
                     Button nahodna = dostupneKarty[rnd.Next(dostupneKarty.Count)];
@@ -139,10 +132,8 @@ namespace PEXESO.Resources
                 return vybraneKarty;
             }
 
-            // Normální a Těžká si nejdřív zkontrolují paměť
             AktualizujPametPodleHry(dostupneKarty);
 
-            // 1. KROK: Hledání JISTOTY (Mám k nějakému ID už uložené všechny 3 karty?)
             for (int i = 0; i < 100; i++)
             {
                 if (pamet[i, 0] != null)
@@ -151,7 +142,6 @@ namespace PEXESO.Resources
                     {
                         if (pamet[i, 2] != null)
                         {
-                            // Máme plnou trojici!
                             vybraneKarty.Add(pamet[i, 0]);
                             vybraneKarty.Add(pamet[i, 1]);
                             vybraneKarty.Add(pamet[i, 2]);
@@ -161,13 +151,11 @@ namespace PEXESO.Resources
                 }
             }
 
-            // 2. KROK: Pokud není 100% jistota, vezme první kartu náhodně a zkusí dohledat zbytek
             Button prvniKarta = dostupneKarty[rnd.Next(dostupneKarty.Count)];
             vybraneKarty.Add(prvniKarta);
 
             int hledaneId = (int)prvniKarta.Tag;
 
-            // Podíváme se, jestli v paměti k tomuto tagu nemáme zbylé (jednu nebo dvě) karty
             for (int i = 0; i < 3; i++)
             {
                 if (pamet[hledaneId, i] != null)
@@ -191,7 +179,6 @@ namespace PEXESO.Resources
                 }
             }
 
-            // 3. KROK: Doplnění zbytku tahů naprosto náhodně (pokud paměť nepomohla najít celou trojici)
             while (vybraneKarty.Count < 3)
             {
                 Button nahodneDoplneni = dostupneKarty[rnd.Next(dostupneKarty.Count)];
