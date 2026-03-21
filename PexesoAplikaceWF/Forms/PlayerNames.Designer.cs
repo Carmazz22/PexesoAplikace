@@ -60,6 +60,7 @@
             // btnDoMenu
             // 
             this.btnDoMenu.BackColor = System.Drawing.Color.White;
+            this.btnDoMenu.BackgroundImage = global::PEXESO.Properties.Resources.menu_sipka;
             this.btnDoMenu.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnDoMenu.Font = new System.Drawing.Font("Roboto Condensed", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnDoMenu.Location = new System.Drawing.Point(700, 0);
@@ -67,7 +68,7 @@
             this.btnDoMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnDoMenu.Size = new System.Drawing.Size(100, 100);
             this.btnDoMenu.TabIndex = 14;
-            this.btnDoMenu.Text = "MENU";
+            this.btnDoMenu.Tag = "A";
             this.btnDoMenu.UseVisualStyleBackColor = false;
             this.btnDoMenu.Click += new System.EventHandler(this.btnDoMenu_Click);
             // 
@@ -86,10 +87,10 @@
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.label1.Font = new System.Drawing.Font("Roboto Condensed", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label1.Location = new System.Drawing.Point(260, 18);
+            this.label1.Font = new System.Drawing.Font("Roboto Condensed", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(200, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(280, 78);
+            this.label1.Size = new System.Drawing.Size(400, 78);
             this.label1.TabIndex = 4;
             this.label1.Text = "PEXESO";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;

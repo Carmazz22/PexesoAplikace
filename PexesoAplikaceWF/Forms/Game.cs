@@ -109,15 +109,15 @@ namespace PEXESO.Forms
                     vzhled = br.ReadByte();
                     rezimBarev = br.ReadByte();
 
-                    if (vzhled == 1)
+                    if (vzhled == 0)
                     {
                         cestaAtlas = @"..\..\Resources\PexesoSheet1.png";
                     }
-                    else if (vzhled == 2)
+                    else if (vzhled == 1)
                     {
                         cestaAtlas = @"..\..\Resources\PexesoSheet2.png";
                     }
-                    else if (vzhled == 3)
+                    else if (vzhled == 2)
                     {
                         cestaAtlas = @"..\..\Resources\PexesoSheet3.png";
                     }

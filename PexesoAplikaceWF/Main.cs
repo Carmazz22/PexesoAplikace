@@ -147,6 +147,8 @@ namespace PEXESO
             formular.BackgroundImage = global::PEXESO.Properties.Resources.background1;
             formular.BackgroundImageLayout = ImageLayout.Stretch;
 
+
+
             // Přepsaný switch na klasické if podmínky
 
             foreach (Control prvek in formular.Controls)
@@ -163,17 +165,17 @@ namespace PEXESO
                         }
                         else if (podPrvek is Button)
                         {
-                            podPrvek.BackColor = Color.FromArgb(60, 60, 65);
+                            podPrvek.BackColor = Color.FromArgb(10, 10, 10);
                             podPrvek.ForeColor = Color.White;
                         }
                         else if (podPrvek is TextBox)
                         {
-                            podPrvek.BackColor = Color.FromArgb(70, 70, 75);
+                            podPrvek.BackColor = Color.FromArgb(10, 10, 10);
                             podPrvek.ForeColor = Color.White;
                         }
                         else if (podPrvek is ComboBox cb) // Přidáno pro jistotu z minula
                         {
-                            cb.BackColor = Color.FromArgb(70, 70, 75);
+                            cb.BackColor = Color.FromArgb(10, 10, 10);
                             cb.ForeColor = Color.White;
                             cb.FlatStyle = FlatStyle.Flat;
                         }
@@ -187,7 +189,14 @@ namespace PEXESO
                 {
                     prvek.BackColor = Color.FromArgb(60, 60, 65);
                     prvek.ForeColor = Color.White;
+                    if (prvek.Tag as string == "A")
+                    {
+
+                        prvek.BackgroundImage = global::PEXESO.Properties.Resources.menu_sipka_bila;
+
+                    }
                 }
+
                 else if (prvek is TextBox)
                 {
                     prvek.BackColor = Color.FromArgb(70, 70, 75);
@@ -237,6 +246,12 @@ namespace PEXESO
                         {
                             podPrvek.BackColor = Color.White;
                             podPrvek.ForeColor = Color.Black;
+
+                            if (prvek.Tag as string == "A")
+                            {
+                                prvek.BackgroundImage = global::PEXESO.Properties.Resources.menu_sipka;
+
+                            }
                         }
                         else if (podPrvek is TextBox)
                         {

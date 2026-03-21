@@ -58,6 +58,7 @@
             this.btnDoMenu.Name = "btnDoMenu";
             this.btnDoMenu.Size = new System.Drawing.Size(100, 100);
             this.btnDoMenu.TabIndex = 14;
+            this.btnDoMenu.Tag = "A";
             this.btnDoMenu.UseVisualStyleBackColor = false;
             this.btnDoMenu.Click += new System.EventHandler(this.btnDoMenu_Click);
             // 

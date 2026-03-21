@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelTitle = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.comboPocetHracu = new System.Windows.Forms.ComboBox();
@@ -43,7 +44,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.comboBarvy = new System.Windows.Forms.ComboBox();
             this.btnDoMenu = new System.Windows.Forms.Button();
-            this.labelTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -70,6 +70,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(800, 800);
             this.panel1.TabIndex = 0;
+            // 
+            // labelTitle
+            // 
+            this.labelTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelTitle.Font = new System.Drawing.Font("Roboto Condensed", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.labelTitle.Location = new System.Drawing.Point(200, 96);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.labelTitle.Size = new System.Drawing.Size(400, 40);
+            this.labelTitle.TabIndex = 16;
+            this.labelTitle.Text = "Nastavení";
+            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
             // 
@@ -268,20 +280,9 @@
             this.btnDoMenu.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.btnDoMenu.Size = new System.Drawing.Size(100, 100);
             this.btnDoMenu.TabIndex = 12;
+            this.btnDoMenu.Tag = "A";
             this.btnDoMenu.UseVisualStyleBackColor = false;
             this.btnDoMenu.Click += new System.EventHandler(this.btnDoMenu_Click);
-            // 
-            // labelTitle
-            // 
-            this.labelTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.labelTitle.Font = new System.Drawing.Font("Roboto Condensed", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.labelTitle.Location = new System.Drawing.Point(200, 96);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.labelTitle.Size = new System.Drawing.Size(400, 40);
-            this.labelTitle.TabIndex = 16;
-            this.labelTitle.Text = "Nastavení";
-            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Settings
             // 
