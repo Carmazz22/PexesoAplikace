@@ -157,5 +157,17 @@
   <ItemGroup>
     <None Include="Resources\menu_sipka_bila.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sounds\click.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sounds\flip.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sounds\neshoda.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sounds\shoda.wav" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

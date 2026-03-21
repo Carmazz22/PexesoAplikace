@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Windows.Forms;
 using PEXESO.Forms;
-
 using System.Media;
 using System.Drawing;
 using System.IO;
 using System.ComponentModel;
+using System.Diagnostics.Eventing.Reader;
 
 namespace PEXESO
 {
     public partial class PEXESO : Form
     {
-
         private Form aktivniForm = null;
         SoundPlayer prehravacZvuku;
 
@@ -30,11 +29,9 @@ namespace PEXESO
         private void Main_Load(object sender, EventArgs e)
         {
             AktualizacePreferenci();
-
             OtevreniFormu(new global::PEXESO.Forms.Menu());
         }
 
-        // Nová veřejná metoda pro aktualizaci proměnné 'zvuk' ze souboru .dat
         public void AktualizacePreferenci()
         {
             if (File.Exists(cestaNastaveni))
@@ -65,12 +62,13 @@ namespace PEXESO
             aktivniForm.TopLevel = false;
             aktivniForm.FormBorderStyle = FormBorderStyle.None;
             aktivniForm.Dock = DockStyle.Fill;
-            if (rezim == 0) 
+
+            if (rezim == 0)
             {
                 AplikujSvetlyRezim(aktivniForm);
                 AplikujSvetlyRezim(this);
             }
-            else if (rezim == 1) //tmavy
+            else if (rezim == 1)
             {
                 AplikujTmavyRezim(aktivniForm);
                 AplikujTmavyRezim(this);
@@ -81,76 +79,55 @@ namespace PEXESO
 
             this.ResumeLayout();
         }
-
-        public void prehratZvuk(byte typ)
+        #region Metoda pro přehrání zvuku
+        public void prehratZvuk(int cisloZvuku)
         {
-            AktualizacePreferenci();
-            SoundPlayer player;
-            string cestaKliknuti = @"..\..\Resources\sounds\click.wav";
-            string cestaOtoceni = @"..\..\Resources\sounds\flip.wav";
-            string cestaShoda = @"..\..\Resources\sounds\shoda.wav";
-            string cestaNeshoda = @"..\..\Resources\sounds\neshoda.wav";
-            switch (typ)
+            if (zvuk == 1)
             {
-                case 0: //kliknutí v menu
-                    {
-                        if (File.Exists(cestaNastaveni) && zvuk == 1)
-                        {
-                            player = new SoundPlayer(cestaKliknuti);
-                            player.Play();
-                        }
+                if (cisloZvuku == 0)
+                {
+                    prehravacZvuku = new SoundPlayer(Properties.Resources.click);
+                }
+                else if (cisloZvuku == 1)
+                {
+                    prehravacZvuku = new SoundPlayer(Properties.Resources.flip);
+                }
+                else if (cisloZvuku == 2)
+                {
+                    prehravacZvuku = new SoundPlayer(Properties.Resources.shoda);
+                }
+                else if (cisloZvuku == 3)
+                {
+                    prehravacZvuku = new SoundPlayer(Properties.Resources.neshoda);
+                }
 
-                        break;
-                    }
-                case 1: //otočení kartičky
-                    {
-                        if (File.Exists(cestaNastaveni) && zvuk == 1)
-                        {
-                            player = new SoundPlayer(cestaOtoceni);
-                            player.Play();
-                        }
-
-                        break;
-                    }
-                case 2:
-                    {
-                        if (File.Exists(cestaNastaveni) && zvuk == 1)
-                        {
-                            player = new SoundPlayer(cestaShoda);
-                            player.Play();
-                        }
-
-                        break;
-                    }
-                case 3: 
-                    {
-                        if (File.Exists(cestaNastaveni) && zvuk == 1)
-                        {
-                            player = new SoundPlayer(cestaNeshoda);
-                            player.Play();
-                        }
-
-                        break;
-                    }
-
-
+                if (prehravacZvuku != null)
+                {
+                    prehravacZvuku.Play();
+                }
             }
-
+            
+        }
+        #endregion
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
         }
 
+        #region Tmavý režim
         public void AplikujTmavyRezim(Form formular)
         {
-            formular.BackColor = Color.FromArgb(45, 45, 48);
+            formular.BackColor = Color.Black;
             formular.ForeColor = Color.White;
 
-            // Nastavení tmavého pozadí z Resources
             formular.BackgroundImage = global::PEXESO.Properties.Resources.background1;
             formular.BackgroundImageLayout = ImageLayout.Stretch;
 
-
-
-            // Přepsaný switch na klasické if podmínky
-
             foreach (Control prvek in formular.Controls)
             {
                 if (prvek is Panel)
@@ -163,72 +140,58 @@ namespace PEXESO
                         {
                             podPrvek.ForeColor = Color.White;
                         }
-                        else if (podPrvek is Button)
+                        else if (podPrvek is Button btn)
                         {
-                            podPrvek.BackColor = Color.FromArgb(10, 10, 10);
-                            podPrvek.ForeColor = Color.White;
+                            btn.BackColor = Color.Black;
+                            btn.ForeColor = Color.White;
+
+                            if (btn.Tag != null && btn.Tag.ToString() == "A")
+                            {
+                                btn.BackgroundImage = global::PEXESO.Properties.Resources.menu_sipka_bila;
+                            }
                         }
                         else if (podPrvek is TextBox)
                         {
-                            podPrvek.BackColor = Color.FromArgb(10, 10, 10);
+                            podPrvek.BackColor = Color.Black;
                             podPrvek.ForeColor = Color.White;
                         }
-                        else if (podPrvek is ComboBox cb) // Přidáno pro jistotu z minula
+                        else if (podPrvek is ComboBox cb)
                         {
-                            cb.BackColor = Color.FromArgb(10, 10, 10);
+                            cb.BackColor = Color.Black;
                             cb.ForeColor = Color.White;
                             cb.FlatStyle = FlatStyle.Flat;
                         }
+                        else if (podPrvek is CheckBox check)
+                        {
+                            check.ForeColor = Color.White;
+                            check.BackColor = Color.Transparent;
+                        }
+                        else if (podPrvek is DataGridView tabulka)
+                        {
+                            tabulka.BackgroundColor = Color.Black;
+                            tabulka.GridColor = Color.White;
+                            tabulka.DefaultCellStyle.BackColor = Color.Black;
+                            tabulka.DefaultCellStyle.ForeColor = Color.White;
+                            tabulka.DefaultCellStyle.SelectionBackColor = Color.FromArgb(60, 60, 60);
+                            tabulka.DefaultCellStyle.SelectionForeColor = Color.White;
+                            tabulka.EnableHeadersVisualStyles = false;
+                            tabulka.ColumnHeadersDefaultCellStyle.BackColor = Color.Black;
+                            tabulka.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                            tabulka.BorderStyle = BorderStyle.FixedSingle;
+                            tabulka.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+                        }
                     }
-                }
-                else if (prvek is Label)
-                {
-                    prvek.ForeColor = Color.White;
-                }
-                else if (prvek is Button)
-                {
-                    prvek.BackColor = Color.FromArgb(60, 60, 65);
-                    prvek.ForeColor = Color.White;
-                    if (prvek.Tag as string == "A")
-                    {
-
-                        prvek.BackgroundImage = global::PEXESO.Properties.Resources.menu_sipka_bila;
-
-                    }
-                }
-
-                else if (prvek is TextBox)
-                {
-                    prvek.BackColor = Color.FromArgb(70, 70, 75);
-                    prvek.ForeColor = Color.White;
-                }
-                else if (prvek is ComboBox cb) // Přidáno pro jistotu z minula
-                {
-                    cb.BackColor = Color.FromArgb(70, 70, 75);
-                    cb.ForeColor = Color.White;
-                    cb.FlatStyle = FlatStyle.Flat;
                 }
             }
         }
-
+        #endregion
+        #region Světlý režim barev
         public void AplikujSvetlyRezim(Form formular)
         {
-            formular.BackColor = Color.WhiteSmoke;
+            formular.BackColor = Color.White;
             formular.ForeColor = Color.Black;
 
-            // Nastavení světlého pozadí z Resources
             formular.BackgroundImage = global::PEXESO.Properties.Resources.background;
-            formular.BackgroundImageLayout = ImageLayout.Stretch;
-
-            // Přepsaný switch na klasické if podmínky
-            if (formular is global::PEXESO.Forms.Menu || formular is global::PEXESO.Forms.Score)
-            {
-                // Místo pro specifický kód
-            }
-            else if (formular is global::PEXESO.Forms.PlayerNames || formular is global::PEXESO.Forms.Settings)
-            {
-                // Místo pro specifický kód
-            }
 
             foreach (Control prvek in formular.Controls)
             {
@@ -242,15 +205,14 @@ namespace PEXESO
                         {
                             podPrvek.ForeColor = Color.Black;
                         }
-                        else if (podPrvek is Button)
+                        else if (podPrvek is Button btn)
                         {
-                            podPrvek.BackColor = Color.White;
-                            podPrvek.ForeColor = Color.Black;
+                            btn.BackColor = Color.White;
+                            btn.ForeColor = Color.Black;
 
-                            if (prvek.Tag as string == "A")
+                            if (btn.Tag != null && btn.Tag.ToString() == "A")
                             {
-                                prvek.BackgroundImage = global::PEXESO.Properties.Resources.menu_sipka;
-
+                                btn.BackgroundImage = global::PEXESO.Properties.Resources.menu_sipka;
                             }
                         }
                         else if (podPrvek is TextBox)
@@ -258,48 +220,36 @@ namespace PEXESO
                             podPrvek.BackColor = Color.White;
                             podPrvek.ForeColor = Color.Black;
                         }
-                        else if (podPrvek is ComboBox cb) // Přidáno pro jistotu z minula
+                        else if (podPrvek is ComboBox cb)
                         {
                             cb.BackColor = Color.White;
                             cb.ForeColor = Color.Black;
                             cb.FlatStyle = FlatStyle.Standard;
                         }
+                        else if (podPrvek is CheckBox check)
+                        {
+                            check.ForeColor = Color.Black;
+                            check.BackColor = Color.Transparent;
+                        }
+                        else if (podPrvek is DataGridView tabulka)
+                        {
+                            tabulka.BackgroundColor = Color.White;
+                            tabulka.GridColor = Color.Black;
+                            tabulka.DefaultCellStyle.BackColor = Color.White;
+                            tabulka.DefaultCellStyle.ForeColor = Color.Black;
+                            tabulka.DefaultCellStyle.SelectionBackColor = Color.LightGray;
+                            tabulka.DefaultCellStyle.SelectionForeColor = Color.Black;
+                            tabulka.EnableHeadersVisualStyles = false;
+                            tabulka.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
+                            tabulka.ColumnHeadersDefaultCellStyle.ForeColor = Color.Black;
+                            tabulka.BorderStyle = BorderStyle.FixedSingle;
+                            tabulka.CellBorderStyle = DataGridViewCellBorderStyle.Single;
+                        }
                     }
                 }
-                else if (prvek is Label)
-                {
-                    prvek.ForeColor = Color.Black;
-                }
-                else if (prvek is Button)
-                {
-                    prvek.BackColor = Color.White;
-                    prvek.ForeColor = Color.Black;
-                }
-                else if (prvek is TextBox)
-                {
-                    prvek.BackColor = Color.White;
-                    prvek.ForeColor = Color.Black;
-                }
-                else if (prvek is ComboBox cb) // Přidáno pro jistotu z minula
-                {
-                    cb.BackColor = Color.White;
-                    cb.ForeColor = Color.Black;
-                    cb.FlatStyle = FlatStyle.Standard;
-                }
+                
             }
         }
-
-        protected override CreateParams CreateParams
-        {
-            get
-            {
-                CreateParams cp = base.CreateParams;
-                // Zapne WS_EX_COMPOSITED a WS_EX_LAYERED
-                // To donutí WinForms vykreslovat všechno do paměti naráz
-                cp.ExStyle |= 0x02000000;
-                return cp;
-            }
-        }
-
+        #endregion
     }
 }

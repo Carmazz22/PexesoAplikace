@@ -17,7 +17,7 @@ namespace PEXESO.Forms
         {
             InitializeComponent();
         }
-        string cestaNastaveni = @"..\..\Config\settings.dat";
+        
         private void Menu_Load(object sender, EventArgs e)
         {
             panel1.Location = new Point((this.ClientSize.Width - panel1.Width) / 2, 50);

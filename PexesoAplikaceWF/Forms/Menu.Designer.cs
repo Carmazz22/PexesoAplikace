@@ -129,6 +129,7 @@
             this.btnNewGame.Name = "btnNewGame";
             this.btnNewGame.Size = new System.Drawing.Size(280, 80);
             this.btnNewGame.TabIndex = 1;
+            this.btnNewGame.Tag = "";
             this.btnNewGame.Text = "NOVÁ HRA";
             this.btnNewGame.UseVisualStyleBackColor = false;
             this.btnNewGame.Click += new System.EventHandler(this.btnNewGame_Click);

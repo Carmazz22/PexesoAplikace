@@ -137,6 +137,7 @@
             this.SloupecProhry,
             this.SloupecKarty});
             this.dataGridViewSkore.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
+            this.dataGridViewSkore.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.dataGridViewSkore.Location = new System.Drawing.Point(100, 220);
             this.dataGridViewSkore.Name = "dataGridViewSkore";
             this.dataGridViewSkore.ReadOnly = true;
