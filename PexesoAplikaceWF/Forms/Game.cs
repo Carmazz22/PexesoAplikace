@@ -756,12 +756,19 @@ namespace PEXESO.Forms
             }
 
             UlozVysledkyDoHistorie(vitez);
-            MessageBox.Show("Vítěz: " + vitez, "Konec hry");
-
-            if (this.Parent is PEXESO main)
+            Endgame shrnutiPoHre = new Endgame(jmenaHracu, skoreHracu, rezimBarev);
+            panel1.Hide();
+            DialogResult otevri = shrnutiPoHre.ShowDialog();
+            if(DialogResult.OK == otevri)
             {
-                main.OtevreniFormu(new global::PEXESO.Forms.Menu());
+                if (this.Parent is PEXESO main)
+                {
+                    main.OtevreniFormu(new global::PEXESO.Forms.Menu());
+                }
+                
             }
+
+            
         }
         #endregion
 
