@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadGame));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnDoMenu = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -71,7 +72,7 @@
             this.label3.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.label3.Size = new System.Drawing.Size(267, 40);
             this.label3.TabIndex = 5;
-            this.label3.Text = "Načtení hry";
+            this.label3.Text = "načtení hry";
             this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
@@ -93,6 +94,7 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoadGame";
             this.Text = "LoadGame";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

@@ -44,6 +44,9 @@ namespace PEXESO.Forms
                     byte celkovyPocetKaret = br.ReadByte();
                     byte pocetHracu = br.ReadByte();
 
+                    // KOMENTÁŘ: Přidáno čtení nového bytu pro obtížnost AI, aby se neposunulo čtení dalších dat.
+                    byte obtiznostAI = br.ReadByte();
+
                     string hraciText = "Hráči: ";
                     for (int j = 0; j < pocetHracu; j++)
                     {

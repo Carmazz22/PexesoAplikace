@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings));
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -80,7 +81,7 @@
             this.labelTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labelTitle.Size = new System.Drawing.Size(400, 40);
             this.labelTitle.TabIndex = 16;
-            this.labelTitle.Text = "Nastavení";
+            this.labelTitle.Text = "nastavení";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label10
@@ -293,6 +294,7 @@
             this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.panel1);
             this.DoubleBuffered = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Settings";
             this.Text = "Settings";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

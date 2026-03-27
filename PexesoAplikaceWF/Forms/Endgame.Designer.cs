@@ -18,12 +18,14 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panelVysledky = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.panelVysledky = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
-
+            // 
+            // panel1
+            // 
             this.panel1.BackColor = System.Drawing.Color.Transparent;
             this.panel1.Controls.Add(this.panelVysledky);
             this.panel1.Controls.Add(this.labelTitle);
@@ -32,7 +34,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(700, 800);
             this.panel1.TabIndex = 0;
-
+            // 
+            // panelVysledky
+            // 
+            this.panelVysledky.Location = new System.Drawing.Point(100, 139);
+            this.panelVysledky.Name = "panelVysledky";
+            this.panelVysledky.Size = new System.Drawing.Size(500, 526);
+            this.panelVysledky.TabIndex = 13;
+            // 
+            // labelTitle
+            // 
             this.labelTitle.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.labelTitle.Font = new System.Drawing.Font("Roboto Condensed", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.labelTitle.Location = new System.Drawing.Point(150, 96);
@@ -40,9 +51,11 @@
             this.labelTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labelTitle.Size = new System.Drawing.Size(400, 40);
             this.labelTitle.TabIndex = 12;
-            this.labelTitle.Text = "Skóre";
+            this.labelTitle.Text = "výsledky hry";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
+            // 
+            // label2
+            // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label2.Font = new System.Drawing.Font("Roboto Condensed", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label2.Location = new System.Drawing.Point(150, 18);
@@ -51,12 +64,9 @@
             this.label2.TabIndex = 11;
             this.label2.Text = "PEXESO";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-
-            this.panelVysledky.Location = new System.Drawing.Point(100, 139);
-            this.panelVysledky.Name = "panelVysledky";
-            this.panelVysledky.Size = new System.Drawing.Size(500, 526);
-            this.panelVysledky.TabIndex = 13;
-
+            // 
+            // Endgame
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -72,6 +82,7 @@
             this.Load += new System.EventHandler(this.Endgame_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         #endregion

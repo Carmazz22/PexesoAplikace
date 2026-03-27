@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Score));
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelTitle = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -60,7 +61,7 @@
             this.labelTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labelTitle.Size = new System.Drawing.Size(400, 40);
             this.labelTitle.TabIndex = 10;
-            this.labelTitle.Text = "Skóre";
+            this.labelTitle.Text = "skóre";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2
@@ -189,8 +190,9 @@
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1904, 1041);
             this.Controls.Add(this.panel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Score";
-            this.Text = "á";
+            this.Text = "Skóre";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.Score_Load);
             this.panel1.ResumeLayout(false);

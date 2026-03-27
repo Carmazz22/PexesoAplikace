@@ -30,6 +30,7 @@ namespace PEXESO
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PEXESO));
             this.SuspendLayout();
             // 
             // PEXESO
@@ -40,6 +41,7 @@ namespace PEXESO
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1920, 1080);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "PEXESO";
             this.Text = "PEXESO";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;

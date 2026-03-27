@@ -183,19 +183,24 @@ namespace PEXESO.Forms
         {
             bocniPanel = new Panel();
 
-            int maxRight = 0;
-            int maxBottom = 0;
-            foreach (Button btn in vsechnyKarty)
+            // KOMENTÁŘ: Místo iterování zrušených karet a hledání maxRight a maxBottom zjišťujeme fixní 
+            // pozici panelu podle celkového počtu karet. Tím pádem bude panel vždy na stejném místě, i při LoadGame.
+            int pocetSloupcu = 6;
+            if (celkovyPocetKaret == 45)
             {
-                if (btn.Right > maxRight)
-                {
-                    maxRight = btn.Right;
-                }
-                if (btn.Bottom > maxBottom)
-                {
-                    maxBottom = btn.Bottom;
-                }
+                pocetSloupcu = 9;
             }
+            else if (celkovyPocetKaret == 51)
+            {
+                pocetSloupcu = 10;
+            }
+            else if (celkovyPocetKaret == 60)
+            {
+                pocetSloupcu = 10;
+            }
+
+            int maxRight = (pocetSloupcu - 1) * 125 + 120;
+            int maxBottom = ((celkovyPocetKaret - 1) / pocetSloupcu) * 125 + 120;
 
             bocniPanel.Location = new Point(maxRight + 40, 0);
             bocniPanel.Size = new Size(240, 680);
@@ -212,7 +217,7 @@ namespace PEXESO.Forms
             {
                 this.BackColor = Color.FromArgb(45, 45, 48);
                 bocniPanel.BackColor = Color.FromArgb(0, 0, 0);
-                barvaTlacitek = Color.FromArgb(20, 20, 20);
+                barvaTlacitek = Color.FromArgb(0, 0, 0);
                 barvaTextu = Color.FromArgb(255, 255, 255);
             }
 
@@ -244,9 +249,19 @@ namespace PEXESO.Forms
             bocniPanel.Controls.Add(nadpis);
 
             string nazevObtiznosti = "Neznámá";
-            if (obtiznostAI == 0) nazevObtiznosti = "Lehká";
-            else if (obtiznostAI == 1) nazevObtiznosti = "Normální";
-            else if (obtiznostAI == 2) nazevObtiznosti = "Těžká";
+
+            if (obtiznostAI == 0)
+            {
+                nazevObtiznosti = "Lehká";
+            }
+            else if (obtiznostAI == 1)
+            {
+                nazevObtiznosti = "Normální";
+            }
+            else if (obtiznostAI == 2)
+            {
+                nazevObtiznosti = "Těžká";
+            }
 
             labelObtiznost = new Label();
             labelObtiznost.Text = "Obtížnost AI: " + nazevObtiznosti;
@@ -397,7 +412,7 @@ namespace PEXESO.Forms
                 if (i == aktualniHracIndex)
                 {
                     labelyHracu[i].ForeColor = Color.Red;
-                    labelyHracu[i].Font = new Font("Roboto", 10, FontStyle.Bold);
+                    labelyHracu[i].Font = new Font("Roboto", 12, FontStyle.Bold);
                 }
                 else
                 {
@@ -477,7 +492,7 @@ namespace PEXESO.Forms
         }
         #endregion
 
-        #region Logika Karet a Hry
+        #region Logika Karet a Hry + metoda na generaci karet
         private void VytvorKartu(int i, int tagValue, int pocetSloupcu, bool jeAktivni)
         {
             Button btn = new Button();
@@ -559,10 +574,6 @@ namespace PEXESO.Forms
 
         private Image kartaZistkatObrazek(int index)
         {
-            if (atlasObrazku == null)
-            {
-                return null;
-            }
             Bitmap bmp = new Bitmap(120, 120);
             using (Graphics g = Graphics.FromImage(bmp))
             {
@@ -759,16 +770,13 @@ namespace PEXESO.Forms
             Endgame shrnutiPoHre = new Endgame(jmenaHracu, skoreHracu, rezimBarev);
             panel1.Hide();
             DialogResult otevri = shrnutiPoHre.ShowDialog();
-            if(DialogResult.OK == otevri)
+            if (DialogResult.OK == otevri)
             {
                 if (this.Parent is PEXESO main)
                 {
                     main.OtevreniFormu(new global::PEXESO.Forms.Menu());
                 }
-                
             }
-
-            
         }
         #endregion
 
@@ -868,9 +876,18 @@ namespace PEXESO.Forms
 
             if (prepisDialog.ShowDialog() == DialogResult.OK)
             {
-                if (combo.SelectedIndex == 0) return 1;
-                else if (combo.SelectedIndex == 1) return 2;
-                else if (combo.SelectedIndex == 2) return 3;
+                if (combo.SelectedIndex == 0)
+                {
+                    return 1;
+                }
+                else if (combo.SelectedIndex == 1)
+                {
+                    return 2;
+                }
+                else if (combo.SelectedIndex == 2)
+                {
+                    return 3;
+                }
             }
             return 0;
         }
@@ -944,6 +961,8 @@ namespace PEXESO.Forms
             bw.Write(celkovyPocetKaret);
             bw.Write((byte)jmenaHracu.Count);
 
+            bw.Write(obtiznostAI);
+
             for (int i = 0; i < jmenaHracu.Count; i++)
             {
                 bw.Write(jmenaHracu[i]);
@@ -1008,6 +1027,8 @@ namespace PEXESO.Forms
             celkovyPocetKaret = br.ReadByte();
             byte pocetHracuNacteno = br.ReadByte();
 
+            obtiznostAI = br.ReadByte();
+
             jmenaHracu.Clear();
             skoreHracu = new int[pocetHracuNacteno];
 
@@ -1018,9 +1039,19 @@ namespace PEXESO.Forms
             }
 
             int pocetSloupcu = 6;
-            if (celkovyPocetKaret == 45) pocetSloupcu = 9;
-            else if (celkovyPocetKaret == 51) pocetSloupcu = 10;
-            else if (celkovyPocetKaret == 60) pocetSloupcu = 10;
+
+            if (celkovyPocetKaret == 45)
+            {
+                pocetSloupcu = 9;
+            }
+            else if (celkovyPocetKaret == 51)
+            {
+                pocetSloupcu = 10;
+            }
+            else if (celkovyPocetKaret == 60)
+            {
+                pocetSloupcu = 10;
+            }
 
             vsechnyKarty.Clear();
             herniPoleProSave.Clear();
@@ -1074,7 +1105,11 @@ namespace PEXESO.Forms
                 string jmeno = jmenaHracu[i];
                 int body = skoreHracu[i];
                 string vysledek = "Prohra";
-                if (jmeno == vitez) vysledek = "Výhra";
+
+                if (jmeno == vitez)
+                {
+                    vysledek = "Výhra";
+                }
 
                 bool nalezen = false;
                 for (int j = 0; j < dbJmena.Count; j++)
@@ -1135,4 +1170,4 @@ namespace PEXESO.Forms
         }
         #endregion
     }
-}   
+}
