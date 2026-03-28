@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEXESO", "PexesoAplikaceWF\PEXESO.csproj", "{439C36CA-A345-48E1-B480-BC0B4AEB7BF9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PEXESO", "Pexeso\PEXESO.csproj", "{439C36CA-A345-48E1-B480-BC0B4AEB7BF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
