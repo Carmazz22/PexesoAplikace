@@ -59,8 +59,12 @@ namespace PEXESO.Forms
                 Label lbl = new Label();
                 lbl.Text = "Hráč: " + listHracu[i] + "; skóre: " + poleProSkoreHracu[i];
                 lbl.Font = new Font("Roboto", 12, FontStyle.Bold);
-                lbl.AutoSize = true;
-                lbl.Location = new Point(20, poziceY);
+
+                
+                lbl.AutoSize = false;
+                lbl.Size = new Size(panelVysledky.Width, 30);
+                lbl.Location = new Point(0, poziceY);
+                lbl.TextAlign = ContentAlignment.MiddleCenter;
 
                 if (poleProSkoreHracu[i] == maxSkore)
                 {

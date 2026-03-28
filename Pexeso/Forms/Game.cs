@@ -769,13 +769,11 @@ namespace PEXESO.Forms
             Endgame shrnutiPoHre = new Endgame(jmenaHracu, skoreHracu, rezimBarev);
             panel1.Hide();
             DialogResult otevri = shrnutiPoHre.ShowDialog();
-            if (DialogResult.OK == otevri)
-            {
                 if (this.Parent is PEXESO main)
                 {
                     main.OtevreniFormu(new global::PEXESO.Forms.Menu());
                 }
-            }
+            
         }
         #endregion
 
