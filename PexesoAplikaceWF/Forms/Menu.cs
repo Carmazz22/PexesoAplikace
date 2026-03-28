@@ -44,7 +44,7 @@ namespace PEXESO.Forms
         {
             if (this.Parent is PEXESO main)
             {
-                main.OtevreniFormu(new global::PEXESO.Forms.LoadGame());
+                main.OtevreniFormu(new global::PEXESO.Forms.LoadGame(main.rezim));
                 main.prehratZvuk(0);
             }
         }

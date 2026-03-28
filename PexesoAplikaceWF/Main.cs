@@ -17,7 +17,7 @@ namespace PEXESO
         string cestaNastaveni = @"..\..\Config\settings.dat";
 
         byte zvuk;
-        byte rezim;
+        public byte rezim;
 
         public PEXESO()
         {

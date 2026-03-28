@@ -183,8 +183,7 @@ namespace PEXESO.Forms
         {
             bocniPanel = new Panel();
 
-            // KOMENTÁŘ: Místo iterování zrušených karet a hledání maxRight a maxBottom zjišťujeme fixní 
-            // pozici panelu podle celkového počtu karet. Tím pádem bude panel vždy na stejném místě, i při LoadGame.
+         
             int pocetSloupcu = 6;
             if (celkovyPocetKaret == 45)
             {
