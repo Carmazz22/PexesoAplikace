@@ -183,7 +183,6 @@ namespace PEXESO.Forms
         {
             bocniPanel = new Panel();
 
-         
             int pocetSloupcu = 6;
             if (celkovyPocetKaret == 45)
             {
@@ -753,27 +752,36 @@ namespace PEXESO.Forms
 
         private void KonecHry()
         {
+            
             int maxSkore = skoreHracu[0];
-            string vitez = jmenaHracu[0];
-
             for (int i = 1; i < skoreHracu.Length; i++)
             {
                 if (skoreHracu[i] > maxSkore)
                 {
                     maxSkore = skoreHracu[i];
-                    vitez = jmenaHracu[i];
                 }
             }
 
-            UlozVysledkyDoHistorie(vitez);
+            
+            List<string> vitezove = new List<string>();
+            for (int i = 0; i < skoreHracu.Length; i++)
+            {
+                if (skoreHracu[i] == maxSkore)
+                {
+                    vitezove.Add(jmenaHracu[i]);
+                }
+            }
+
+            
+            UlozVysledkyDoHistorie(vitezove);
+
             Endgame shrnutiPoHre = new Endgame(jmenaHracu, skoreHracu, rezimBarev);
             panel1.Hide();
             DialogResult otevri = shrnutiPoHre.ShowDialog();
-                if (this.Parent is PEXESO main)
-                {
-                    main.OtevreniFormu(new global::PEXESO.Forms.Menu());
-                }
-            
+            if (this.Parent is PEXESO main)
+            {
+                main.OtevreniFormu(new global::PEXESO.Forms.Menu());
+            }
         }
         #endregion
 
@@ -1069,12 +1077,15 @@ namespace PEXESO.Forms
             AktualizujUI();
         }
 
-        private void UlozVysledkyDoHistorie(string vitez)
+        
+        private void UlozVysledkyDoHistorie(List<string> vitezove)
         {
             List<string> dbJmena = new List<string>();
             List<int> dbVyhry = new List<int>();
             List<int> dbProhry = new List<int>();
             List<int> dbKarty = new List<int>();
+            List<int> dbKartyPosledniHra = new List<int>();
+            List<int> dbCelkemKaretPosledni = new List<int>();
 
             if (File.Exists(cestaHistorie))
             {
@@ -1090,6 +1101,8 @@ namespace PEXESO.Forms
                         dbVyhry.Add(br.ReadInt32());
                         dbProhry.Add(br.ReadInt32());
                         dbKarty.Add(br.ReadInt32());
+                        dbKartyPosledniHra.Add(br.ReadInt32());
+                        dbCelkemKaretPosledni.Add(br.ReadInt32());
                     }
                 }
 
@@ -1103,9 +1116,27 @@ namespace PEXESO.Forms
                 int body = skoreHracu[i];
                 string vysledek = "Prohra";
 
-                if (jmeno == vitez)
+                
+                bool jeVitez = false;
+                for (int v = 0; v < vitezove.Count; v++)
                 {
-                    vysledek = "Výhra";
+                    if (jmeno == vitezove[v])
+                    {
+                        jeVitez = true;
+                    }
+                }
+
+                if (jeVitez)
+                {
+                    
+                    if (vitezove.Count > 1)
+                    {
+                        vysledek = "Remíza";
+                    }
+                    else
+                    {
+                        vysledek = "Výhra";
+                    }
                 }
 
                 bool nalezen = false;
@@ -1116,6 +1147,9 @@ namespace PEXESO.Forms
                         nalezen = true;
                         dbKarty[j] += body;
 
+                        dbKartyPosledniHra[j] = body;
+                        dbCelkemKaretPosledni[j] = celkovyPocetKaret;
+
                         if (vysledek == "Výhra")
                         {
                             dbVyhry[j] += 1;
@@ -1124,6 +1158,7 @@ namespace PEXESO.Forms
                         {
                             dbProhry[j] += 1;
                         }
+                        
                     }
                 }
 
@@ -1131,6 +1166,8 @@ namespace PEXESO.Forms
                 {
                     dbJmena.Add(jmeno);
                     dbKarty.Add(body);
+                    dbKartyPosledniHra.Add(body);
+                    dbCelkemKaretPosledni.Add(celkovyPocetKaret);
 
                     if (vysledek == "Výhra")
                     {
@@ -1142,7 +1179,7 @@ namespace PEXESO.Forms
                         dbVyhry.Add(0);
                         dbProhry.Add(1);
                     }
-                    else
+                    else 
                     {
                         dbVyhry.Add(0);
                         dbProhry.Add(0);
@@ -1160,6 +1197,8 @@ namespace PEXESO.Forms
                 bw.Write(dbVyhry[i]);
                 bw.Write(dbProhry[i]);
                 bw.Write(dbKarty[i]);
+                bw.Write(dbKartyPosledniHra[i]);
+                bw.Write(dbCelkemKaretPosledni[i]);
             }
 
             bw.Close();

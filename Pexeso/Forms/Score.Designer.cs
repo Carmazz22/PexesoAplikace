@@ -30,6 +30,8 @@
             this.SloupecVyhry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SloupecProhry = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SloupecKarty = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SloupecKartyPosledniHra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SloupecCelkemKaretPosledni = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnDoMenu = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSkore)).BeginInit();
@@ -130,7 +132,9 @@
             this.SloupecJmeno,
             this.SloupecVyhry,
             this.SloupecProhry,
-            this.SloupecKarty});
+            this.SloupecKarty,
+            this.SloupecKartyPosledniHra,
+            this.SloupecCelkemKaretPosledni});
             this.dataGridViewSkore.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dataGridViewSkore.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.dataGridViewSkore.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -162,9 +166,21 @@
             // 
             // SloupecKarty
             // 
-            this.SloupecKarty.HeaderText = "Nasbírané karty";
+            this.SloupecKarty.HeaderText = "Celkem karet";
             this.SloupecKarty.Name = "SloupecKarty";
             this.SloupecKarty.ReadOnly = true;
+            // 
+            // SloupecKartyPosledniHra
+            // 
+            this.SloupecKartyPosledniHra.HeaderText = "Karty (Poslední hra)";
+            this.SloupecKartyPosledniHra.Name = "SloupecKartyPosledniHra";
+            this.SloupecKartyPosledniHra.ReadOnly = true;
+            // 
+            // SloupecCelkemKaretPosledni
+            // 
+            this.SloupecCelkemKaretPosledni.HeaderText = "Karet celkem (Poslední hra)";
+            this.SloupecCelkemKaretPosledni.Name = "SloupecCelkemKaretPosledni";
+            this.SloupecCelkemKaretPosledni.ReadOnly = true;
             // 
             // btnDoMenu
             // 
@@ -211,6 +227,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn SloupecVyhry;
         private System.Windows.Forms.DataGridViewTextBoxColumn SloupecProhry;
         private System.Windows.Forms.DataGridViewTextBoxColumn SloupecKarty;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SloupecKartyPosledniHra;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SloupecCelkemKaretPosledni;
         private System.Windows.Forms.ComboBox comboBoxFiltr;
         private System.Windows.Forms.Label labelFiltr;
         private System.Windows.Forms.Label labelTitle;

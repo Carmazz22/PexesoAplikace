@@ -27,6 +27,9 @@ namespace PEXESO.Forms
             comboBoxFiltr.Items.Add("Prohry");
             comboBoxFiltr.Items.Add("Nasbírané karty");
 
+            comboBoxFiltr.Items.Add("Karty v poslední hře");
+            comboBoxFiltr.Items.Add("Celkem k., poslední hra");
+
             comboBoxFiltr.SelectedIndex = 0;
 
             NactiHistorii();
@@ -51,6 +54,8 @@ namespace PEXESO.Forms
                         hrac.Vyhry = br.ReadInt32();
                         hrac.Prohry = br.ReadInt32();
                         hrac.NasbiraneKarty = br.ReadInt32();
+                        hrac.KartyPosledniHra = br.ReadInt32(); 
+                        hrac.CelkemKaretPosledni = br.ReadInt32();
 
                         hraciSkore.Add(hrac);
                     }
@@ -76,9 +81,12 @@ namespace PEXESO.Forms
             dataGridViewSkore.Rows.Clear();
 
             string hledanyText = "";
-            if (textBoxHledat != null && textBoxHledat.Text != null)
+            if (textBoxHledat != null)
             {
-                hledanyText = textBoxHledat.Text.ToLower();
+                if (textBoxHledat.Text != null)
+                {
+                    hledanyText = textBoxHledat.Text.ToLower();
+                }
             }
 
             string zvolenyFiltr = "";
@@ -125,15 +133,33 @@ namespace PEXESO.Forms
                             shoda = true;
                         }
                     }
+                    else if (zvolenyFiltr == "Karty v poslední hře")
+                    {
+                       
+                        if (hraciSkore[i].KartyPosledniHra.ToString().Contains(hledanyText))
+                        {
+                            shoda = true;
+                        }
+                    }
+                    else if (zvolenyFiltr == "Celkem karet v poslední hře")
+                    {
+                        if (hraciSkore[i].CelkemKaretPosledni.ToString().Contains(hledanyText))
+                        {
+                            shoda = true;
+                        }
+                    }
                 }
 
                 if (shoda)
                 {
+                    
                     dataGridViewSkore.Rows.Add(
                         hraciSkore[i].Jmeno,
                         hraciSkore[i].Vyhry,
                         hraciSkore[i].Prohry,
-                        hraciSkore[i].NasbiraneKarty
+                        hraciSkore[i].NasbiraneKarty,
+                        hraciSkore[i].KartyPosledniHra,
+                        hraciSkore[i].CelkemKaretPosledni
                     );
                 }
             }
@@ -149,11 +175,14 @@ namespace PEXESO.Forms
         }
     }
 
+    
     public class ZaznamHrace
     {
         public string Jmeno;
         public int Vyhry;
         public int Prohry;
         public int NasbiraneKarty;
+        public int KartyPosledniHra;
+        public int CelkemKaretPosledni;
     }
 }
