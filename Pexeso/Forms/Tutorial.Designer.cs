@@ -46,7 +46,7 @@
             this.labelTitle.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.labelTitle.Size = new System.Drawing.Size(267, 40);
             this.labelTitle.TabIndex = 5;
-            this.labelTitle.Text = "Nápověda";
+            this.labelTitle.Text = "nápověda";
             this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label1
