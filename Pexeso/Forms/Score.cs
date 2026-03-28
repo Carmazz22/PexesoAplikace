@@ -141,7 +141,7 @@ namespace PEXESO.Forms
                             shoda = true;
                         }
                     }
-                    else if (zvolenyFiltr == "Celkem karet v poslední hře")
+                    else if (zvolenyFiltr == "Celkem k., poslední hra")
                     {
                         if (hraciSkore[i].CelkemKaretPosledni.ToString().Contains(hledanyText))
                         {
