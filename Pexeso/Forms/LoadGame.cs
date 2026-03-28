@@ -11,6 +11,7 @@ namespace PEXESO.Forms
     public partial class LoadGame : Form
     {
         byte barRez;
+
         public LoadGame(byte rezim)
         {
             InitializeComponent();
@@ -49,7 +50,7 @@ namespace PEXESO.Forms
         {
             int poziceY = 150;
             bool nalezenaHra = false;
-            int sirkaKarty = 600;
+            int sirkaKarty = 500;
 
             for (int i = 1; i <= 3; i++)
             {
@@ -74,8 +75,11 @@ namespace PEXESO.Forms
                         string jmeno = br.ReadString();
                         int skore = br.ReadInt32();
 
-                        if (j > 0) hraciText += ", ";
-                        hraciText += jmeno;
+                        if (j > 0)
+                        {
+                            hraciText = hraciText + ", ";
+                        }
+                        hraciText = hraciText + jmeno;
                     }
 
                     br.Close();
@@ -114,13 +118,13 @@ namespace PEXESO.Forms
                     kartaHry.Controls.Add(btnNacist);
 
                     AplikujBarevnyRezim(kartaHry, lblNazev, lblHraci, btnNacist);
-
                     panel1.Controls.Add(kartaHry);
-                    poziceY += 240;
+
+                    poziceY = poziceY + 240;
                 }
             }
 
-            if (!nalezenaHra)
+            if (nalezenaHra == false)
             {
                 Label lblZadna = new Label();
                 lblZadna.Text = "Žádná uložená hra nebyla nalezena.";
@@ -128,7 +132,16 @@ namespace PEXESO.Forms
                 lblZadna.Size = new Size(panel1.Width, 50);
                 lblZadna.Location = new Point(0, 200);
                 lblZadna.TextAlign = ContentAlignment.MiddleCenter;
-                lblZadna.ForeColor = (barRez == 1) ? Color.White : Color.Black;
+
+                if (barRez == 1)
+                {
+                    lblZadna.ForeColor = Color.White;
+                }
+                else
+                {
+                    lblZadna.ForeColor = Color.Black;
+                }
+
                 panel1.Controls.Add(lblZadna);
             }
         }
@@ -137,12 +150,14 @@ namespace PEXESO.Forms
         {
             if (sender is Button btn)
             {
-                string nazevKNacteni = btn.Tag.ToString();
-
-                if (this.Parent is PEXESO main)
+                if (btn.Tag != null)
                 {
-                    Game novaHra = new Game();
-                    main.OtevreniFormu(novaHra);
+                    string nazevKNacteni = btn.Tag.ToString();
+                    if (this.Parent is PEXESO main)
+                    {
+                        Game novaHra = new Game(nazevKNacteni);
+                        main.OtevreniFormu(novaHra);
+                    }
                 }
             }
         }
